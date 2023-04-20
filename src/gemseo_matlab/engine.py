@@ -134,7 +134,8 @@ class MatlabEngine:
     __is_parallel: bool
     """Whether the execution is parallel."""
 
-    __FILE_TYPES: Final[tuple] = (
+    __EXIST_TO_TYPE_NAME: Final[tuple] = (
+        "",
         "variable",
         "file",
         "MEX-file",
@@ -209,7 +210,7 @@ class MatlabEngine:
         # 7 — name is a folder.
         # 8 — name is a class. (exist returns 0 for Java classes if
         #     you start MATLAB with the -nojvm option.)
-        return out == 0, self.__FILE_TYPES[out]
+        return out != 0, self.__EXIST_TO_TYPE_NAME[out]
 
     def close_session(self) -> None:
         """Close the matlab session."""

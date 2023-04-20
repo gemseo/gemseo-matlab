@@ -294,7 +294,7 @@ def test_check_cleaning_interval():
         MatlabDiscipline(MATLAB_SIMPLE_FUNC, clean_cache_each_n=2.3)
 
 
-def test_save_data(tmp_wd):
+def test_save_data():
     """Test that discipline data are correctly exported into a matlab file."""
     mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
     mat.execute({"x": array([2])})

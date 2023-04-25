@@ -79,8 +79,8 @@ def test_save_matlab_file():
     save_matlab_file(test_dict, name_file)
     load_dat = load_matlab_file(name_file)
 
-    assert array(load_dat["test1"][0]) == pytest.approx(test_dict["test1"])
-    assert array(load_dat["test2"][0]) == pytest.approx(test_dict["test2"])
+    assert array(load_dat["test1"]).flatten() == pytest.approx(test_dict["test1"])
+    assert array(load_dat["test2"]).flatten() == pytest.approx(test_dict["test2"])
     assert array(load_dat["test3"]) == pytest.approx(test_dict["test3"])
     os.remove(name_file)
 
@@ -89,52 +89,42 @@ def test_array2double_1d():
     """Test that a 1d array is correctly converted to double."""
     a = array([3.0, 2.0])
     r = array2double(a)
-    assert a[0] == pytest.approx(r[0])
-    assert a[1] == pytest.approx(r[1])
+    assert a == pytest.approx(r)
 
 
 def test_array2double_1d_complex():
     """Test that a 1d complex array is correctly converted to double."""
     a = array([3.0, 2.0 + 5.2j])
     r = array2double(a)
-    assert a[0] == pytest.approx(r[0])
-    assert a[1] == pytest.approx(r[1])
+    assert a == pytest.approx(r)
 
 
 def test_array2double_2d():
     """Test that a 2d array is correctly converted to double."""
     a = array([[3.0, 2.0], [11, 22.0]])
     r = array2double(a)
-    assert a[0][0] - r[0][0] == pytest.approx(0)
-    assert a[0][1] - r[0][1] == pytest.approx(0)
-    assert a[1][0] - r[1][0] == pytest.approx(0)
-    assert a[1][1] - r[1][1] == pytest.approx(0)
+    assert a - r == pytest.approx(0)
 
 
 def test_double2array_1d():
     """Test that matlab.double is correctly converted to ndarray."""
     a = matlab.double([2.0, 3.0])
     r = double2array(a)
-    assert a[0][0] - r[0] == pytest.approx(0)
-    assert a[0][1] - r[1] == pytest.approx(0)
+    assert a - r == pytest.approx(0)
 
 
 def test_double2array_1d_complex():
     """Test that 1d complex matlab.double is correctly converted to ndarray."""
     a = matlab.double([2.0, 3.0 + 6.3j], is_complex=True)
     r = double2array(a)
-    assert a[0][0] - r[0] == pytest.approx(0)
-    assert a[0][1] - r[1] == pytest.approx(0)
+    assert a - r == pytest.approx(0)
 
 
 def test_double2array_2d():
     """Test that 2d matlab.double is correctly converted to ndarray."""
     a = matlab.double([[3.0, 2.0], [11, 22.0]])
     r = double2array(a)
-    assert a[0][0] - r[0][0] == pytest.approx(0)
-    assert a[0][1] - r[0][1] == pytest.approx(0)
-    assert a[1][0] - r[1][0] == pytest.approx(0)
-    assert a[1][1] - r[1][1] == pytest.approx(0)
+    assert a - r == pytest.approx(0)
 
 
 def test_matlab2gems():
@@ -145,11 +135,9 @@ def test_matlab2gems():
         "test3": matlab.double([[3.0, 2.0], [10.0, 22.0]]),
     }
     r = convert_array_from_matlab(d)
-    assert r["test1"][0] - d["test1"][0][0] == pytest.approx(0)
-    assert r["test1"][1] - d["test1"][0][1] == pytest.approx(0)
-    assert r["test2"][0] - d["test2"][0][0] == pytest.approx(0)
-    assert sum(r["test3"][0] - d["test3"][0]) == pytest.approx(0)
-    assert sum(r["test3"][1] - d["test3"][1]) == pytest.approx(0)
+    assert r["test1"] - d["test1"] == pytest.approx(0)
+    assert r["test2"] - d["test2"] == pytest.approx(0)
+    assert sum(r["test3"] - d["test3"]) == pytest.approx(0)
 
 
 def test_gems2matlab():
@@ -162,5 +150,4 @@ def test_gems2matlab():
     r = convert_array_to_matlab(d)
     assert sum(r["test1"] - d["test1"]) == pytest.approx(0)
     assert r["test2"] - d["test2"] == pytest.approx(0)
-    assert sum(r["test3"][0] - d["test3"][0]) == pytest.approx(0)
-    assert sum(r["test3"][1] - d["test3"][1]) == pytest.approx(0)
+    assert sum(r["test3"] - d["test3"]) == pytest.approx(0)

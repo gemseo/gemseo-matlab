@@ -193,11 +193,7 @@ def double2array(
     # note here that we can treat string as well
     # -> we put string into an array as float
     #    (otherwise the array has no shape)
-    if (
-        isinstance(matlab_double, float)
-        or isinstance(matlab_double, str)
-        or isinstance(matlab_double, complex)
-    ):
+    if isinstance(matlab_double, (float, str, complex)):
         output = array([matlab_double], dtype=d_type)
     else:
         output = array(matlab_double, dtype=d_type)

@@ -48,7 +48,6 @@ adapt with the proper version of matlab:
 
    podman build Dockerfile -t gemseo-matlab:r2020b --build-arg=MATLAB_VERSION=r2020b
 
-
 Bugs/Questions
 --------------
 

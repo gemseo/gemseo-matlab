@@ -21,7 +21,16 @@ engine as well as its Python API are installed.
 The MATLAB Python API is not defined as a dependency of this package,
 because until MATLAB release R2020b there was no package available in PyPI.
 It shall be installed in the same environment as the one in which this plugin is installed,
-please refer to the MATLAB documentation to install it.
+please refer to the MATLAB documentation for further information.
+
+Here are the current versions of the MATLAB Python packages per MATLAB versions:
+- r2020b for Python 3.8: 9.9.1
+- r2021a for Python 3.8: 9.10.1
+- r2021b for Python 3.8, 3,9: 9.11.19
+- r2022a for Python 3.8, 3.9: 9.12.17
+- r2022b for Python 3.8, 3.9, 3.10: 9.13.9
+- r2023a for Python 3.8, 3.9, 3.10: 9.14.3
+
 To make sure that MATLAB works fine through the Python API,
 start a Python interpreter and
 check that there is no error when executing :code:`import matlab`.

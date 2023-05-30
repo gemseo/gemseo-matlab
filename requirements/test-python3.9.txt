@@ -12,7 +12,7 @@ contourpy==1.0.7
     # via matplotlib
 covdefaults==2.3.0
     # via gemseo-matlab (setup.py)
-coverage[toml]==7.2.6
+coverage[toml]==7.2.7
     # via
     #   covdefaults
     #   pytest-cov
@@ -78,7 +78,7 @@ pytest==7.3.1
     #   gemseo-matlab (setup.py)
     #   pytest-cov
     #   pytest-xdist
-pytest-cov==4.0.0
+pytest-cov==4.1.0
     # via gemseo-matlab (setup.py)
 pytest-xdist==3.3.1
     # via gemseo-matlab (setup.py)
@@ -108,7 +108,7 @@ tomli==2.0.1
     #   pytest
 tqdm==4.65.0
     # via gemseo
-typing-extensions==4.6.1
+typing-extensions==4.6.2
     # via gemseo
 tzdata==2023.3
     # via pandas

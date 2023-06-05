@@ -27,7 +27,7 @@ ARG TOX_VERSION=3.28.0
 RUN  pip install tox==$TOX_VERSION \
   && rm -rf $HOME/.cache/pip
 
-# The matlabengine package from PyPI expects matlab to installed in /usr/local/MATLAB
+# The matlabengine package from PyPI expects matlab to be installed in /usr/local/MATLAB
 RUN  mkdir -p /usr/local \
   && ln -s /opt/matlab /usr/local/MATLAB
 

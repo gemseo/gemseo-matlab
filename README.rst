@@ -33,13 +33,13 @@ Here are the current versions of the MATLAB Python packages per MATLAB versions:
 
 To make sure that MATLAB works fine through the Python API,
 start a Python interpreter and
-check that there is no error when executing :code:`import matlab`.
+check that there is no error when executing ``import matlab``.
 
 Development
 ~~~~~~~~~~~
 
 For testing with ``tox``,
-set the environment variable :envvar:`MATLAB_PIP_REQ_SPEC`
+set the environment variable ``MATLAB_PIP_REQ_SPEC``
 to point to the URL or path of a ``pip`` installable version of the MATLAB Python API,
 with eventually a conditional dependency on the Python version:
 

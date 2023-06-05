@@ -19,7 +19,7 @@ from gemseo_matlab.engine import get_matlab_engine  # noqa: E402
 from gemseo_matlab.license_manager import LicenseManager  # noqa: E402
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def matlab_engine():
     """Return a brand new matlab engine with clean cache."""
     get_matlab_engine.cache_clear()

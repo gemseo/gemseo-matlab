@@ -107,7 +107,7 @@ def test_matlab_optim_results():
 
     # ref values are taken from the doc "Sellar Problem"
 
-    optim_res = scenario.get_optimum()
+    optim_res = scenario.optimization_result
     assert pytest.approx(optim_res.f_opt) == 3.182059
 
     x_opt = scenario.design_space.get_current_value(as_dict=True)

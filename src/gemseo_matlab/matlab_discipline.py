@@ -359,9 +359,7 @@ class MatlabDiscipline(MDODiscipline):
             for output_name, output_value in output_data.items():
                 self.__outputs_size[output_name] = len(output_value)
 
-        default_values = input_data.copy()
-        default_values.update(output_data)
-        self.default_inputs = default_values
+        self.default_inputs = input_data.copy()
 
     def __filter_jacobian_in_outputs(self) -> None:
         """Filter jacobians in outputs names.

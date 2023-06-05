@@ -24,7 +24,7 @@ from gemseo_matlab.engine import get_matlab_engine  # noqa: E402
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def matlab_engine():
     """Return a brand new matlab engine with clean cache."""
     get_matlab_engine.cache_clear()
@@ -55,7 +55,7 @@ def execute_function(matlab_engine):
         (None, MATLAB_FILES_DIR_PATH, True, "folder"),
         (None, "dummy_test.m", True, "file"),
         (None, "dummy_test.p", True, "P-code-file"),
-        (None, "non_existing_file", False, None),
+        (None, "non_existing_file", False, ""),
         (execute_function, "dummy_var", True, "variable"),
     ),
 )

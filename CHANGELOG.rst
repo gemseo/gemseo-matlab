@@ -26,21 +26,11 @@ and this project adheres to
 `Semantic Versioning <https://semver.org/spec/v2.0.0.html>`_.
 
 
-Version X.X.X (date)
+Version develop (20/06/2023)
 ********************
-
-Added
------
-
-- XXX
-
-Changed
--------
-
-- XXX
-
 
 Fixed
 -----
 
-- XXX
+- The MatLab discipline can now be instantiated using input and output grammar files.
+Linked issue: https://gitlab.com/gemseo/dev/gemseo-matlab/-/issues/3

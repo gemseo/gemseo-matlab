@@ -329,23 +329,29 @@ class MatlabDiscipline(MDODiscipline):
                 load_matlab_file(str(matlab_data_file).replace(".mat", ""))
             )
 
-        if input_grammar_file is None and not auto_detect_grammar_files:
-            # Here, we temporary init inputs data with an array of
-            # size 1 but that could not be the right size...
-            # The right size can be known from either matlab_data_file or evaluating
-            # the matlab function
-            input_data = dict.fromkeys(self.__inputs, np.array([0.1]))
-            if matlab_data_file is not None:
-                input_data = self.__update_data(input_data.copy(), saved_values)
+        # Here, we temporary init inputs data with an array of
+        # size 1 but that could not be the right size...
+        # The right size can be known from either matlab_data_file or evaluating
+        # the matlab function
+        input_data = dict.fromkeys(self.__inputs, np.array([0.1]))
+        # same remark as above about the size
+        output_data = dict.fromkeys(self.__outputs, np.array([0.1]))
 
-        if output_grammar_file is None and not auto_detect_grammar_files:
-            # same remark as above about the size
-            output_data = dict.fromkeys(self.__outputs, np.array([0.1]))
-            if matlab_data_file is not None:
-                output_data = self.__update_data(output_data.copy(), saved_values)
+        if (
+            input_grammar_file is None
+            and not auto_detect_grammar_files
+            and matlab_data_file is not None
+        ):
+            input_data = self.__update_data(input_data.copy(), saved_values)
+
+        if (
+            output_grammar_file is None
+            and not auto_detect_grammar_files
+            and matlab_data_file is not None
+        ):
+            output_data = self.__update_data(output_data.copy(), saved_values)
 
         self.input_grammar.update_from_data(input_data)
-
         self.output_grammar.update_from_data(output_data)
 
         # If none input matlab data is prescribed, we cannot know

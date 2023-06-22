@@ -15,9 +15,11 @@
 from __future__ import annotations
 
 import pytest
+from numpy import array
+import pickle
+
 from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
 from gemseo_matlab.matlab_discipline import MatlabDiscipline  # noqa: E402
-from numpy import array
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
@@ -303,3 +305,21 @@ def test_save_data():
     written_data = load_matlab_file(output_file)
     assert array(written_data["x"]) == pytest.approx(2)
     assert array(written_data["y"]) == pytest.approx(4)
+
+
+def test_serialize(tmp_path):
+    """Test that MatlabDiscipline can be serialized."""
+    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
+
+    file_name = "mat_disc.pk"
+    f = open(tmp_path / file_name, "wb")
+    pickle.dump(mat, f)
+    f.close()
+
+    f = open(tmp_path / file_name, "rb")
+    new_disc = pickle.load(f)
+    f.close()
+
+    out = new_disc.execute({"x": array([2])})
+    assert out["y"] == pytest.approx(4)
+

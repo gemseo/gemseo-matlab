@@ -14,12 +14,12 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
-import pytest
-from numpy import array
 import pickle
 
+import pytest
 from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
 from gemseo_matlab.matlab_discipline import MatlabDiscipline  # noqa: E402
+from numpy import array
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
@@ -322,4 +322,3 @@ def test_serialize(tmp_path):
 
     out = new_disc.execute({"x": array([2])})
     assert out["y"] == pytest.approx(4)
-

@@ -161,7 +161,7 @@ class MatlabEngine:
         self.add_path(str(Path(__file__).parent))
 
     @property
-    def engine_name(self):
+    def engine_name(self) -> str:
         """Return the engine name."""
         return self.__engine_name
 

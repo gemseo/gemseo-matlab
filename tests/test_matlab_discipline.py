@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import pickle
+from pathlib import Path
 
 import pytest
 from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
@@ -322,3 +323,13 @@ def test_serialize(tmp_path):
 
     out = new_disc.execute({"x": array([2])})
     assert out["y"] == pytest.approx(4)
+
+
+def test_with_given_grammar_file():
+    """Test the discipline instantiation when grammar files are given."""
+    mat = MatlabDiscipline(
+        MATLAB_SIMPLE_FUNC,
+        input_grammar_file="./tests/matlab_files/input_dummy_grammar.json",
+        output_grammar_file=Path("tests/matlab_files") / "output_dummy_grammar.json",
+    )
+    assert isinstance(mat, MatlabDiscipline)

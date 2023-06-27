@@ -162,7 +162,7 @@ class MatlabEngine:
 
     @property
     def engine_name(self) -> str:
-        """Return the engine name."""
+        """The engine name."""
         return self.__engine_name
 
     @property

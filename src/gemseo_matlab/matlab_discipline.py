@@ -102,7 +102,7 @@ class MatlabDiscipline(MDODiscipline):
         ]
     )
 
-    _TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME = "matlab_engine_name"
+    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: ClassVar[str] = "matlab_engine_name"
 
     def __init__(
         self,
@@ -226,14 +226,13 @@ class MatlabDiscipline(MDODiscipline):
         self,
         state: Mapping[str, Any],
     ) -> None:
-        engine_name = state[self._TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME]
-        del state[self._TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME]
+        engine_name = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME)
         super().__setstate__(state)
         self.__engine = get_matlab_engine(engine_name)
 
     def __getstate__(self) -> dict[str, Any]:
         state = super().__getstate__()
-        state[self._TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
+        state[self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
         if not self.__engine.is_closed:
             self.__engine.close_session()
         return state

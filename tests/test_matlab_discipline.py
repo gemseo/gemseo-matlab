@@ -18,15 +18,13 @@ import pickle
 from pathlib import Path
 
 import pytest
-from numpy import array
-from numpy import compress
-
 from gemseo.algos.design_space import DesignSpace
 from gemseo.core.doe_scenario import DOEScenario
-
+from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
 from gemseo_matlab.matlab_discipline import MatlabDiscipline  # noqa: E402
-from gemseo_matlab.engine import get_matlab_engine
+from numpy import array
+from numpy import compress
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
@@ -367,7 +365,8 @@ def test_parallel():
         {"algo": "lhs", "n_samples": n_samples, "algo_options": {"n_processes": 2}}
     )
     outputs, _ = scenario.formulation.opt_problem.database.get_history(
-        function_names=["pid", "y"])
+        function_names=["pid", "y"]
+    )
 
     # split outputs in two separate arrays depending on PID
     outputs = array(outputs)

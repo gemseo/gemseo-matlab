@@ -43,6 +43,7 @@ from typing import Mapping
 from typing import MutableMapping
 from typing import Sequence
 
+import gemseo.utils.multiprocessing as mp
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline import MDODiscipline
@@ -56,7 +57,6 @@ from gemseo_matlab.matlab_data_processor import load_matlab_file
 from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import save_matlab_file
 from gemseo_matlab.matlab_parser import MatlabParser
-import gemseo.utils.multiprocessing as mp
 
 LOGGER = logging.getLogger(__name__)
 
@@ -249,10 +249,7 @@ class MatlabDiscipline(MDODiscipline):
         # is used through different platform
         paths = [to_os_specific(Path(path)) for path in self.__engine.paths]
 
-        state[self.__TMP_ATTR_FOR_SERIALIZATION] = (
-            self.__engine.engine_name,
-            paths
-        )
+        state[self.__TMP_ATTR_FOR_SERIALIZATION] = (self.__engine.engine_name, paths)
         if not self.__engine.is_closed:
             self.__engine.close_session()
         return state

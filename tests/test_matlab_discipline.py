@@ -18,13 +18,20 @@ import pickle
 from pathlib import Path
 
 import pytest
+from numpy import array
+from numpy import compress
+
+from gemseo.algos.design_space import DesignSpace
+from gemseo.core.doe_scenario import DOEScenario
+
 from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
 from gemseo_matlab.matlab_discipline import MatlabDiscipline  # noqa: E402
-from numpy import array
+from gemseo_matlab.engine import get_matlab_engine
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
 MATLAB_SIMPLE_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test.m"
+MATLAB_PARALLEL_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test_parallel.m"
 MATLAB_COMPLEX_FUNC = MATLAB_FILES_DIR_PATH / "dummy_complex_fct.m"
 MATLAB_SIMPLE_FUNC_MULTIDIM = MATLAB_FILES_DIR_PATH / "dummy_test_multidim.m"
 MATLAB_SIMPLE_FUNC_MULTIDIM_JAC = MATLAB_FILES_DIR_PATH / "dummy_test_multidim_jac.m"
@@ -317,6 +324,9 @@ def test_serialize(tmp_path):
     pickle.dump(mat, f)
     f.close()
 
+    # Clean lru_cache so a different engine is built
+    get_matlab_engine.cache_clear()
+
     f = open(tmp_path / file_name, "rb")
     new_disc = pickle.load(f)
     f.close()
@@ -329,7 +339,41 @@ def test_with_given_grammar_file():
     """Test the discipline instantiation when grammar files are given."""
     mat = MatlabDiscipline(
         MATLAB_SIMPLE_FUNC,
-        input_grammar_file="./tests/matlab_files/input_dummy_grammar.json",
-        output_grammar_file=Path("tests/matlab_files") / "output_dummy_grammar.json",
+        input_grammar_file=str(
+            Path(__file__).parent / "matlab_files/input_dummy_grammar.json"
+        ),
+        output_grammar_file=str(
+            Path(__file__).parent / "matlab_files/output_dummy_grammar.json"
+        ),
     )
     assert isinstance(mat, MatlabDiscipline)
+
+
+def test_parallel():
+    """Test multiprocessing with matlab discipline.
+
+    We check that the outputs are correctly computed from different process ID.
+    """
+    mat = MatlabDiscipline(MATLAB_PARALLEL_FUNC)
+
+    ds = DesignSpace()
+    ds.add_variable("x", l_b=-10, u_b=10)
+
+    scenario = DOEScenario([mat], "DisciplinaryOpt", "y", ds)
+    scenario.add_observable("pid")
+
+    n_samples = 10
+    scenario.execute(
+        {"algo": "lhs", "n_samples": n_samples, "algo_options": {"n_processes": 2}}
+    )
+    outputs, _ = scenario.formulation.opt_problem.database.get_history(
+        function_names=["pid", "y"])
+
+    # split outputs in two separate arrays depending on PID
+    outputs = array(outputs)
+    pid_1 = outputs[0, 0]
+    out_1 = compress(outputs[:, 0] == pid_1, outputs, axis=0)
+    out_2 = compress(outputs[:, 0] != pid_1, outputs, axis=0)
+
+    assert out_1.shape[0] != n_samples
+    assert out_2.shape[0] != n_samples

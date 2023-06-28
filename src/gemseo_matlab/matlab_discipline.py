@@ -46,6 +46,7 @@ from typing import Sequence
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline import MDODiscipline
+from gemseo.utils.portable_path import to_os_specific
 
 from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.engine import MatlabEngine
@@ -102,7 +103,7 @@ class MatlabDiscipline(MDODiscipline):
         ]
     )
 
-    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: ClassVar[str] = "matlab_engine_name"
+    __TMP_ATTR_FOR_SERIALIZATION: ClassVar[str] = "matlab_engine"
 
     def __init__(
         self,
@@ -226,13 +227,25 @@ class MatlabDiscipline(MDODiscipline):
         self,
         state: Mapping[str, Any],
     ) -> None:
-        engine_name = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME)
+        engine_name, paths = state.pop(self.__TMP_ATTR_FOR_SERIALIZATION)
         super().__setstate__(state)
         self.__engine = get_matlab_engine(engine_name)
+        # We need to retrieve the path so the engine can find all needed matlab files
+        for path in paths:
+            path = Path(path)
+            self.__engine.add_path(path)
 
     def __getstate__(self) -> dict[str, Any]:
         state = super().__getstate__()
-        state[self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
+
+        # We need to cast the type of path depending on the OS when the serialization
+        # is used through different platform
+        paths = [to_os_specific(Path(path)) for path in self.__engine.paths]
+
+        state[self.__TMP_ATTR_FOR_SERIALIZATION] = (
+            self.__engine.engine_name,
+            paths
+        )
         if not self.__engine.is_closed:
             self.__engine.close_session()
         return state

@@ -56,6 +56,7 @@ from gemseo_matlab.matlab_data_processor import load_matlab_file
 from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import save_matlab_file
 from gemseo_matlab.matlab_parser import MatlabParser
+import gemseo.utils.multiprocessing as mp
 
 LOGGER = logging.getLogger(__name__)
 
@@ -167,6 +168,7 @@ class MatlabDiscipline(MDODiscipline):
             grammar_type=grammar_type,
             cache_file_path=cache_file_path,
         )
+        self.__set_multiprocessing_to_spawn()
         self.__fct_name = None
 
         matlab_fct = str(matlab_fct)
@@ -222,6 +224,11 @@ class MatlabDiscipline(MDODiscipline):
 
         if self.__is_jac_returned_by_func:
             self.__reorder_and_check_jacobian_consistency()
+
+    @classmethod
+    def __set_multiprocessing_to_spawn(cls) -> None:
+        """Force multiprocessing the ``spawn`` method."""
+        mp.CURRENT_MP_METHOD = mp.MultiProcessingMethod.SPAWN
 
     def __setstate__(
         self,

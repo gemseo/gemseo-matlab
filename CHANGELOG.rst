@@ -34,3 +34,6 @@ Fixed
 
 - The MatLab discipline can now be instantiated using input and output grammar files.
 Linked issue: https://gitlab.com/gemseo/dev/gemseo-matlab/-/issues/3
+
+- The Matlab discipline can now be serialized.
+Linked issue: https://gitlab.com/gemseo/dev/gemseo/-/issues/674

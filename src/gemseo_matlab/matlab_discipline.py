@@ -96,6 +96,14 @@ class MatlabDiscipline(MDODiscipline):
 
     JAC_PREFIX: ClassVar[str] = "jac_"
 
+    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union(
+        [
+            "_MatlabDiscipline__engine",
+        ]
+    )
+
+    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: ClassVar[str] = "matlab_engine_name"
+
     def __init__(
         self,
         matlab_fct: str | Path,
@@ -213,6 +221,21 @@ class MatlabDiscipline(MDODiscipline):
 
         if self.__is_jac_returned_by_func:
             self.__reorder_and_check_jacobian_consistency()
+
+    def __setstate__(
+        self,
+        state: Mapping[str, Any],
+    ) -> None:
+        engine_name = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME)
+        super().__setstate__(state)
+        self.__engine = get_matlab_engine(engine_name)
+
+    def __getstate__(self) -> dict[str, Any]:
+        state = super().__getstate__()
+        state[self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
+        if not self.__engine.is_closed:
+            self.__engine.close_session()
+        return state
 
     @property
     def engine(self) -> MatlabEngine:

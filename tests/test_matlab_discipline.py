@@ -14,6 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
+import pickle
 from pathlib import Path
 
 import pytest
@@ -305,6 +306,23 @@ def test_save_data():
     written_data = load_matlab_file(output_file)
     assert array(written_data["x"]) == pytest.approx(2)
     assert array(written_data["y"]) == pytest.approx(4)
+
+
+def test_serialize(tmp_path):
+    """Test that MatlabDiscipline can be serialized."""
+    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
+
+    file_name = "mat_disc.pk"
+    f = open(tmp_path / file_name, "wb")
+    pickle.dump(mat, f)
+    f.close()
+
+    f = open(tmp_path / file_name, "rb")
+    new_disc = pickle.load(f)
+    f.close()
+
+    out = new_disc.execute({"x": array([2])})
+    assert out["y"] == pytest.approx(4)
 
 
 def test_with_given_grammar_file():

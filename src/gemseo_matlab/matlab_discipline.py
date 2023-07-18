@@ -43,12 +43,12 @@ from typing import Mapping
 from typing import MutableMapping
 from typing import Sequence
 
-from gemseo.core.parallel_execution.callable_parallel_execution import (
-    CallableParallelExecution,
-)
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline import MDODiscipline
+from gemseo.core.parallel_execution.callable_parallel_execution import (
+    CallableParallelExecution,
+)
 from gemseo.utils.portable_path import to_os_specific
 
 from gemseo_matlab.engine import get_matlab_engine

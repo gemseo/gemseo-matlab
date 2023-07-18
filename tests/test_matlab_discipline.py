@@ -375,4 +375,4 @@ def test_parallel():
     out_2 = compress(outputs[:, 0] != pid_1, outputs, axis=0)
 
     assert out_1.shape[0] != n_samples
-    assert out_2.shape[0] != n_samples
+    assert out_2.shape[0] == n_samples - out_1.shape[0]

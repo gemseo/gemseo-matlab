@@ -43,7 +43,9 @@ from typing import Mapping
 from typing import MutableMapping
 from typing import Sequence
 
-import gemseo.utils.multiprocessing as mp
+from gemseo.core.parallel_execution.callable_parallel_execution import (
+    CallableParallelExecution,
+)
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline import MDODiscipline
@@ -228,7 +230,9 @@ class MatlabDiscipline(MDODiscipline):
     @classmethod
     def __set_multiprocessing_to_spawn(cls) -> None:
         """Force multiprocessing the ``spawn`` method."""
-        mp.CURRENT_MP_METHOD = mp.MultiProcessingMethod.SPAWN
+        CallableParallelExecution.MULTI_PROCESSING_START_METHOD = (
+            CallableParallelExecution.MultiProcessingStartMethod.SPAWN
+        )
 
     def __setstate__(
         self,
@@ -239,8 +243,7 @@ class MatlabDiscipline(MDODiscipline):
         self.__engine = get_matlab_engine(engine_name)
         # We need to retrieve the path so the engine can find all needed matlab files
         for path in paths:
-            path = Path(path)
-            self.__engine.add_path(path)
+            self.__engine.add_path(Path(path))
 
     def __getstate__(self) -> dict[str, Any]:
         state = super().__getstate__()

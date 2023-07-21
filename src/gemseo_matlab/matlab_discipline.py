@@ -106,7 +106,9 @@ class MatlabDiscipline(MDODiscipline):
         ]
     )
 
-    __TMP_ATTR_FOR_SERIALIZATION: ClassVar[str] = "matlab_engine"
+    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: ClassVar[str] = "matlab_engine_name"
+
+    __TMP_ATTR_FOR_SERIALIZED_PATHS: ClassVar[str] = "matlab_paths"
 
     def __init__(
         self,
@@ -170,7 +172,10 @@ class MatlabDiscipline(MDODiscipline):
             grammar_type=grammar_type,
             cache_file_path=cache_file_path,
         )
-        self.__set_multiprocessing_to_spawn()
+        # Force multiprocessing the spwan method
+        CallableParallelExecution.MULTI_PROCESSING_START_METHOD = (
+            CallableParallelExecution.MultiProcessingStartMethod.SPAWN
+        )
         self.__fct_name = None
 
         matlab_fct = str(matlab_fct)
@@ -227,18 +232,12 @@ class MatlabDiscipline(MDODiscipline):
         if self.__is_jac_returned_by_func:
             self.__reorder_and_check_jacobian_consistency()
 
-    @classmethod
-    def __set_multiprocessing_to_spawn(cls) -> None:
-        """Force multiprocessing the ``spawn`` method."""
-        CallableParallelExecution.MULTI_PROCESSING_START_METHOD = (
-            CallableParallelExecution.MultiProcessingStartMethod.SPAWN
-        )
-
     def __setstate__(
         self,
         state: Mapping[str, Any],
     ) -> None:
-        engine_name, paths = state.pop(self.__TMP_ATTR_FOR_SERIALIZATION)
+        engine_name = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME)
+        paths = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_PATHS)
         super().__setstate__(state)
         self.__engine = get_matlab_engine(engine_name)
         # We need to retrieve the path so the engine can find all needed matlab files
@@ -248,11 +247,14 @@ class MatlabDiscipline(MDODiscipline):
     def __getstate__(self) -> dict[str, Any]:
         state = super().__getstate__()
 
+        state[self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
+
         # We need to cast the type of path depending on the OS when the serialization
         # is used through different platform
-        paths = [to_os_specific(Path(path)) for path in self.__engine.paths]
+        state[self.__TMP_ATTR_FOR_SERIALIZED_PATHS] = [
+            to_os_specific(Path(path)) for path in self.__engine.paths
+        ]
 
-        state[self.__TMP_ATTR_FOR_SERIALIZATION] = (self.__engine.engine_name, paths)
         if not self.__engine.is_closed:
             self.__engine.close_session()
         return state

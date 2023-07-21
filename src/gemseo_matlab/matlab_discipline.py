@@ -106,9 +106,9 @@ class MatlabDiscipline(MDODiscipline):
         ]
     )
 
-    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: ClassVar[str] = "matlab_engine_name"
+    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: Final[str] = "matlab_engine_name"
 
-    __TMP_ATTR_FOR_SERIALIZED_PATHS: ClassVar[str] = "matlab_paths"
+    __TMP_ATTR_FOR_SERIALIZED_PATHS: Final[str] = "matlab_paths"
 
     def __init__(
         self,

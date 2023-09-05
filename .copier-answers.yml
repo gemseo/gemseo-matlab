@@ -1,0 +1,11 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 3a5a1dc
+_src_path: /home/ad/gemseo-copier
+author_email: contact@gemseo.org
+author_name: GEMSEO developers
+gemseo_min_version: develop
+package_is_a_gemseo_plugin: true
+project_is_open_source: true
+project_name_suffix: matlab
+project_slug: gemseo_matlab
+short_description: MATLAB wrapper for GEMSEO

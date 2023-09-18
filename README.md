@@ -26,14 +26,14 @@ to the MATLAB documentation for further information.
 Here are the current versions of the MATLAB Python packages per MATLAB
 versions:
 
-| Python       | Matlab   | matlabengine |
-|:------------:|:---------------:|:---------------:|
-|  3.8          |  r2020b   |  9.9.1      |
-|  3.8          |  r2021a   |  9.10.1     |
-|  3.8, 3.9     |  r2021b   |  9.11.19    |
-|  3.8, 3.9     |  r2022a   |  9.12.17    |
-| 3.8, 3.9, 3.10 |  r2022b   |  9.13.9     |
-| 3.8, 3.9, 3.10 |  r2023a   |  9.14.3     |
+| Python | Matlab | matlabengine |
+|:------:|:------:|:------------:|
+| 3.8 | r2020b | 9.9.1 |
+| 3.8 | r2021a | 9.10.1 |
+| 3.8, 3.9 | r2021b | 9.11.19 |
+| 3.8, 3.9 | r2022a | 9.12.17 |
+| 3.8, 3.9, 3.10 | r2022b | 9.13.9 |
+| 3.8, 3.9, 3.10 | r2023a | 9.14.3 |
 
 To make sure that MATLAB works fine through the Python API, start a
 Python interpreter and check that there is no error when executing

@@ -44,7 +44,6 @@ import matlab
 import scipy.io
 from gemseo.core.data_processor import DataProcessor
 from numpy import array
-from numpy import integer
 from numpy import iscomplexobj
 from numpy import ndarray
 from packaging import version
@@ -213,12 +212,10 @@ def _array2double_numpy(data_array: ndarray) -> matlab.double:
     # or the array has a type like '<f4'.
     #
     # matlab.double must get ndarray of type 'f' (or complex)
-    if issubclass(data_array.dtype.type, integer) or issubclass(
-        data_array.dtype.type, float
-    ):
-        arr = data_array.astype(float)
-    else:
+    if is_cmplx:
         arr = data_array
+    else:
+        arr = data_array.astype(float)
 
     if len(arr.shape) == 1:
         return matlab.double(arr, is_complex=is_cmplx)[0]

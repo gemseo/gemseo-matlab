@@ -43,6 +43,7 @@ import matlab
 import scipy.io
 from gemseo.core.data_processor import DataProcessor
 from numpy import array
+from numpy import integer
 from numpy import iscomplexobj
 from numpy import ndarray
 
@@ -168,10 +169,18 @@ def array2double(data_array: ndarray) -> matlab.double:
         The matlab.double value.
     """
     is_cmplx = iscomplexobj(data_array)
-    if len(data_array.shape) == 1:
-        return matlab.double(data_array.tolist(), is_complex=is_cmplx)[0]
+
+    if issubclass(data_array.dtype.type, integer) or issubclass(
+        data_array.dtype.type, float
+    ):
+        arr = data_array.astype(float)
     else:
-        return matlab.double(data_array.tolist(), is_complex=is_cmplx)
+        arr = data_array
+
+    if len(arr.shape) == 1:
+        return matlab.double(arr, is_complex=is_cmplx)[0]
+    else:
+        return matlab.double(arr, is_complex=is_cmplx)
 
 
 def double2array(

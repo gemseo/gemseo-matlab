@@ -35,6 +35,7 @@ It also enables to read and write Matlab data file (.mat).
 from __future__ import annotations
 
 from copy import copy
+from importlib.metadata import version as get_version_of
 from pathlib import Path
 from typing import Mapping
 from typing import MutableMapping
@@ -46,6 +47,7 @@ from numpy import array
 from numpy import integer
 from numpy import iscomplexobj
 from numpy import ndarray
+from packaging import version
 
 
 class MatlabDataProcessor(DataProcessor):
@@ -162,6 +164,25 @@ def save_matlab_file(
 def array2double(data_array: ndarray) -> matlab.double:
     """Turn a ndarray into a matlab.double.
 
+    May lead to memory leaks for matlabengine < 9.12.
+
+    Args:
+        data_array: The numpy array to be converted.
+
+    Returns:
+        The matlab.double value.
+    """
+    if version.parse(get_version_of("matlabengine")) < version.parse("9.12"):
+        return _array2double_tolist(data_array)
+    else:
+        return _array2double_numpy(data_array)
+
+
+def _array2double_tolist(data_array: ndarray) -> matlab.double:
+    """Turn a ndarray into a matlab.double.
+
+    May lead to memory leaks by using ``.tolist()`` method.
+
     Args:
         data_array: The numpy array to be converted.
 
@@ -170,6 +191,28 @@ def array2double(data_array: ndarray) -> matlab.double:
     """
     is_cmplx = iscomplexobj(data_array)
 
+    if len(data_array.shape) == 1:
+        return matlab.double(data_array.tolist(), is_complex=is_cmplx)[0]
+    else:
+        return matlab.double(data_array.tolist(), is_complex=is_cmplx)
+
+
+def _array2double_numpy(data_array: ndarray) -> matlab.double:
+    """Turn a ndarray into a matlab.double.
+
+    Args:
+        data_array: The numpy array to be converted.
+
+    Returns:
+        The matlab.double value.
+    """
+    is_cmplx = iscomplexobj(data_array)
+
+    # Data type conversion if
+    # the array contains integers
+    # or the array has a type like '<f4'.
+    #
+    # matlab.double must get ndarray of type 'f' (or complex)
     if issubclass(data_array.dtype.type, integer) or issubclass(
         data_array.dtype.type, float
     ):

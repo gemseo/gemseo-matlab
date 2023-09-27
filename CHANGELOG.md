@@ -26,6 +26,15 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Version develop (27/09/2023)
+
+## Fixed
+
+- Memory leaks are fixed in the Matlab discipline,
+for matlabengine >= 9.12.
+Linked issue:
+<https://gitlab.com/gemseo/dev/gemseo-matlab/-/issues/4>
+
 # Version develop (20/06/2023)
 
 ## Fixed

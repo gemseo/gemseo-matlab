@@ -20,6 +20,6 @@ from typing import Final
 
 from packaging import version
 
-USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(get_version_of("matlabengine")) >= version.parse(
-    "9.12"
-)
+USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(
+    get_version_of("matlabengine")
+) >= version.parse("9.12")

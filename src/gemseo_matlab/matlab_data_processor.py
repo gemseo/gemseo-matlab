@@ -178,7 +178,7 @@ def array2double(data_array: ndarray) -> matlab.double:
 
 
 def _array2double_tolist(data_array: ndarray) -> matlab.double:
-    """Turn a ndarray into a matlab.double.
+    """Convert a ndarray into a matlab.double.
 
     May lead to memory leaks by using ``.tolist()`` method.
 
@@ -197,7 +197,7 @@ def _array2double_tolist(data_array: ndarray) -> matlab.double:
 
 
 def _array2double_numpy(data_array: ndarray) -> matlab.double:
-    """Turn a ndarray into a matlab.double.
+    """Convert a ndarray into a matlab.double.
 
     Args:
         data_array: The numpy array to be converted.

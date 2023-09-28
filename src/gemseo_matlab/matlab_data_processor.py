@@ -34,7 +34,9 @@ It also enables to read and write Matlab data file (.mat).
 """
 from __future__ import annotations
 
+import os
 from copy import copy
+from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as get_version_of
 from pathlib import Path
 from typing import Final
@@ -49,9 +51,15 @@ from numpy import iscomplexobj
 from numpy import ndarray
 from packaging import version
 
-USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(
-    get_version_of("matlabengine")
-) >= version.parse("9.12")
+try:
+    USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(
+        get_version_of("matlabengine")
+    ) >= version.parse("9.12")
+except PackageNotFoundError:
+    if "READTHEDOCS" in os.environ:
+        # This is a workaround for building the doc on readthedocs,
+        # because sphinx cannot mock the package for importlib.
+        pass
 
 
 class MatlabDataProcessor(DataProcessor):

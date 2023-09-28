@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 from importlib.metadata import version as get_version_of
+from typing import Final
 
 from packaging import version
 

@@ -35,7 +35,9 @@ It also enables to read and write Matlab data file (.mat).
 from __future__ import annotations
 
 from copy import copy
+from importlib.metadata import version as get_version_of
 from pathlib import Path
+from typing import Final
 from typing import Mapping
 from typing import MutableMapping
 
@@ -45,8 +47,11 @@ from gemseo.core.data_processor import DataProcessor
 from numpy import array
 from numpy import iscomplexobj
 from numpy import ndarray
+from packaging import version
 
-from gemseo_matlab import USE_ARRAY2DOUBLE_NUMPY
+USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(
+    get_version_of("matlabengine")
+) >= version.parse("9.12")
 
 
 class MatlabDataProcessor(DataProcessor):

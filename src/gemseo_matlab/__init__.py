@@ -19,6 +19,6 @@ from importlib.metadata import version as get_version_of
 
 from packaging import version
 
-USE_ARRAY2DOUBLE_NUMPY = version.parse(get_version_of("matlabengine")) >= version.parse(
+USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(get_version_of("matlabengine")) >= version.parse(
     "9.12"
 )

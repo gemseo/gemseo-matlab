@@ -161,7 +161,7 @@ def save_matlab_file(
 
 
 def array2double(data_array: ndarray) -> matlab.double:
-    """Turn a ndarray into a matlab.double.
+    """Convert a ndarray into a matlab.double.
 
     May lead to memory leaks for matlabengine < 9.12.
 

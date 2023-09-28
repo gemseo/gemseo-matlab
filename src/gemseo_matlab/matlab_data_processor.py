@@ -35,7 +35,6 @@ It also enables to read and write Matlab data file (.mat).
 from __future__ import annotations
 
 from copy import copy
-from importlib.metadata import version as get_version_of
 from pathlib import Path
 from typing import Mapping
 from typing import MutableMapping
@@ -46,7 +45,8 @@ from gemseo.core.data_processor import DataProcessor
 from numpy import array
 from numpy import iscomplexobj
 from numpy import ndarray
-from packaging import version
+
+from gemseo_matlab import USE_ARRAY2DOUBLE_NUMPY
 
 
 class MatlabDataProcessor(DataProcessor):
@@ -171,13 +171,13 @@ def array2double(data_array: ndarray) -> matlab.double:
     Returns:
         The matlab.double value.
     """
-    if version.parse(get_version_of("matlabengine")) < version.parse("9.12"):
-        return _array2double_tolist(data_array)
+    if USE_ARRAY2DOUBLE_NUMPY:
+        return __array2double_numpy(data_array)
     else:
-        return _array2double_numpy(data_array)
+        return __array2double_tolist(data_array)
 
 
-def _array2double_tolist(data_array: ndarray) -> matlab.double:
+def __array2double_tolist(data_array: ndarray) -> matlab.double:
     """Convert a ndarray into a matlab.double.
 
     May lead to memory leaks by using ``.tolist()`` method.
@@ -196,7 +196,7 @@ def _array2double_tolist(data_array: ndarray) -> matlab.double:
         return matlab.double(data_array.tolist(), is_complex=is_cmplx)
 
 
-def _array2double_numpy(data_array: ndarray) -> matlab.double:
+def __array2double_numpy(data_array: ndarray) -> matlab.double:
     """Convert a ndarray into a matlab.double.
 
     Args:

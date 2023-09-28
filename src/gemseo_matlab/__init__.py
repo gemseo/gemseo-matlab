@@ -14,3 +14,11 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 """Matlab wrapper."""
 from __future__ import annotations
+
+from importlib.metadata import version as get_version_of
+
+from packaging import version
+
+USE_ARRAY2DOUBLE_NUMPY = version.parse(get_version_of("matlabengine")) >= version.parse(
+    "9.12"
+)

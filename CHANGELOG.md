@@ -26,7 +26,7 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# Version develop
+# Version 1.0.1 (September 2023)
 
 ## Fixed
 
@@ -41,3 +41,7 @@ grammar files. Linked issue:
 
 - The Matlab discipline can now be serialized. Linked issue:
 <https://gitlab.com/gemseo/dev/gemseo/-/issues/674>
+
+# Version 1.0.0 (June 2023)
+
+First release.

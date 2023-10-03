@@ -39,6 +39,7 @@ from os.path import join
 from pathlib import Path
 from typing import Any
 from typing import ClassVar
+from typing import Final
 from typing import Mapping
 from typing import MutableMapping
 from typing import Sequence
@@ -46,6 +47,10 @@ from typing import Sequence
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline import MDODiscipline
+from gemseo.core.parallel_execution.callable_parallel_execution import (
+    CallableParallelExecution,
+)
+from gemseo.utils.portable_path import to_os_specific
 
 from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.engine import MatlabEngine
@@ -95,6 +100,16 @@ class MatlabDiscipline(MDODiscipline):
     """
 
     JAC_PREFIX: ClassVar[str] = "jac_"
+
+    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union(
+        [
+            "_MatlabDiscipline__engine",
+        ]
+    )
+
+    __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: Final[str] = "matlab_engine_name"
+
+    __TMP_ATTR_FOR_SERIALIZED_PATHS: Final[str] = "matlab_paths"
 
     def __init__(
         self,
@@ -158,6 +173,10 @@ class MatlabDiscipline(MDODiscipline):
             grammar_type=grammar_type,
             cache_file_path=cache_file_path,
         )
+        # Force multiprocessing the spwan method
+        CallableParallelExecution.MULTI_PROCESSING_START_METHOD = (
+            CallableParallelExecution.MultiProcessingStartMethod.SPAWN
+        )
         self.__fct_name = None
 
         matlab_fct = str(matlab_fct)
@@ -213,6 +232,33 @@ class MatlabDiscipline(MDODiscipline):
 
         if self.__is_jac_returned_by_func:
             self.__reorder_and_check_jacobian_consistency()
+
+    def __setstate__(
+        self,
+        state: Mapping[str, Any],
+    ) -> None:
+        engine_name = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME)
+        paths = state.pop(self.__TMP_ATTR_FOR_SERIALIZED_PATHS)
+        super().__setstate__(state)
+        self.__engine = get_matlab_engine(engine_name)
+        # We need to retrieve the path so the engine can find all needed matlab files
+        for path in paths:
+            self.__engine.add_path(Path(path))
+
+    def __getstate__(self) -> dict[str, Any]:
+        state = super().__getstate__()
+
+        state[self.__TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME] = self.__engine.engine_name
+
+        # We need to cast the type of path depending on the OS when the serialization
+        # is used through different platform
+        state[self.__TMP_ATTR_FOR_SERIALIZED_PATHS] = [
+            to_os_specific(Path(path)) for path in self.__engine.paths
+        ]
+
+        if not self.__engine.is_closed:
+            self.__engine.close_session()
+        return state
 
     @property
     def engine(self) -> MatlabEngine:
@@ -329,23 +375,29 @@ class MatlabDiscipline(MDODiscipline):
                 load_matlab_file(str(matlab_data_file).replace(".mat", ""))
             )
 
-        if input_grammar_file is None and not auto_detect_grammar_files:
-            # Here, we temporary init inputs data with an array of
-            # size 1 but that could not be the right size...
-            # The right size can be known from either matlab_data_file or evaluating
-            # the matlab function
-            input_data = dict.fromkeys(self.__inputs, np.array([0.1]))
-            if matlab_data_file is not None:
-                input_data = self.__update_data(input_data.copy(), saved_values)
+        # Here, we temporary init inputs data with an array of
+        # size 1 but that could not be the right size...
+        # The right size can be known from either matlab_data_file or evaluating
+        # the matlab function
+        input_data = dict.fromkeys(self.__inputs, np.array([0.1]))
+        # same remark as above about the size
+        output_data = dict.fromkeys(self.__outputs, np.array([0.1]))
 
-        if output_grammar_file is None and not auto_detect_grammar_files:
-            # same remark as above about the size
-            output_data = dict.fromkeys(self.__outputs, np.array([0.1]))
-            if matlab_data_file is not None:
-                output_data = self.__update_data(output_data.copy(), saved_values)
+        if (
+            input_grammar_file is None
+            and not auto_detect_grammar_files
+            and matlab_data_file is not None
+        ):
+            input_data = self.__update_data(input_data.copy(), saved_values)
+
+        if (
+            output_grammar_file is None
+            and not auto_detect_grammar_files
+            and matlab_data_file is not None
+        ):
+            output_data = self.__update_data(output_data.copy(), saved_values)
 
         self.input_grammar.update_from_data(input_data)
-
         self.output_grammar.update_from_data(output_data)
 
         # If none input matlab data is prescribed, we cannot know

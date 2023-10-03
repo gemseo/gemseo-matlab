@@ -161,6 +161,11 @@ class MatlabEngine:
         self.add_path(str(Path(__file__).parent))
 
     @property
+    def engine_name(self) -> str:
+        """The engine name."""
+        return self.__engine_name
+
+    @property
     def paths(self) -> list[str]:
         """Return the paths."""
         return self.__paths
@@ -255,7 +260,10 @@ class MatlabEngine:
         path = str(path)
         if path not in self.__paths:
             if not self.exist(path):
-                raise ValueError("The given path cannot be added to matlab.")
+                raise ValueError(
+                    f"The given path {path} is not found "
+                    f"and cannot be added to matlab."
+                )
             self.__paths.append(path)
             self.__matlab.addpath(path)
 

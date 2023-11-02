@@ -6,7 +6,7 @@
 #
 certifi==2023.7.22
     # via requests
-charset-normalizer==3.3.0
+charset-normalizer==3.3.1
     # via requests
 contourpy==1.1.1
     # via matplotlib
@@ -100,7 +100,7 @@ pydoe2==1.3.0
     # via gemseo
 pyparsing==3.1.1
     # via matplotlib
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   gemseo-matlab (pyproject.toml)
     #   pytest-cov
@@ -149,7 +149,7 @@ typing-extensions==4.8.0
     #   pydantic
 tzdata==2023.3
     # via pandas
-urllib3==2.0.6
+urllib3==2.0.7
     # via requests
 xdsmjs==2.0.0
     # via gemseo

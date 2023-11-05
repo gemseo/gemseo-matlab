@@ -6,9 +6,9 @@
 #
 certifi==2023.7.22
     # via requests
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
     # via requests
-contourpy==1.1.1
+contourpy==1.2.0
     # via matplotlib
 covdefaults==2.3.0
     # via gemseo-matlab (pyproject.toml)
@@ -30,7 +30,7 @@ execnet==2.0.2
     # via pytest-xdist
 fastjsonschema==2.18.0
     # via gemseo
-fonttools==4.43.1
+fonttools==4.44.0
     # via matplotlib
 gemseo[all]==5.1.1
     # via gemseo-matlab (pyproject.toml)

@@ -38,7 +38,7 @@ import os
 from copy import copy
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as get_version_of
-from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import Final
 from typing import Mapping
 from typing import MutableMapping
@@ -50,6 +50,9 @@ from numpy import array
 from numpy import iscomplexobj
 from numpy import ndarray
 from packaging import version
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 try:
     USE_ARRAY2DOUBLE_NUMPY: Final[bool] = version.parse(
@@ -169,7 +172,7 @@ def save_matlab_file(
         if isinstance(data_value, matlab.double):
             data_copy[data_name] = double2array(data_value)
         elif not isinstance(data_value, ndarray):
-            raise ValueError("The data must be composed of NumPy arrays only.")
+            raise TypeError("The data must be composed of NumPy arrays only.")
     scipy.io.savemat(str(file_path), data_copy, **options)
 
 
@@ -186,8 +189,7 @@ def array2double(data_array: ndarray) -> matlab.double:
     """
     if USE_ARRAY2DOUBLE_NUMPY:
         return __array2double_numpy(data_array)
-    else:
-        return __array2double_tolist(data_array)
+    return __array2double_tolist(data_array)
 
 
 def __array2double_tolist(data_array: ndarray) -> matlab.double:
@@ -205,8 +207,7 @@ def __array2double_tolist(data_array: ndarray) -> matlab.double:
 
     if len(data_array.shape) == 1:
         return matlab.double(data_array.tolist(), is_complex=is_cmplx)[0]
-    else:
-        return matlab.double(data_array.tolist(), is_complex=is_cmplx)
+    return matlab.double(data_array.tolist(), is_complex=is_cmplx)
 
 
 def __array2double_numpy(data_array: ndarray) -> matlab.double:
@@ -225,15 +226,11 @@ def __array2double_numpy(data_array: ndarray) -> matlab.double:
     # or the array has a type like '<f4'.
     #
     # matlab.double must get ndarray of type 'f' (or complex)
-    if is_cmplx:
-        arr = data_array
-    else:
-        arr = data_array.astype(float)
+    arr = data_array if is_cmplx else data_array.astype(float)
 
     if len(arr.shape) == 1:
         return matlab.double(arr, is_complex=is_cmplx)[0]
-    else:
-        return matlab.double(arr, is_complex=is_cmplx)
+    return matlab.double(arr, is_complex=is_cmplx)
 
 
 def double2array(
@@ -247,10 +244,7 @@ def double2array(
     Returns:
         The array of values.
     """
-    if iscomplexobj(matlab_double):
-        d_type = "complex"
-    else:
-        d_type = None
+    d_type = "complex" if iscomplexobj(matlab_double) else None
 
     # note here that we can treat string as well
     # -> we put string into an array as float
@@ -298,7 +292,7 @@ def convert_array_to_matlab(
     output = {}
     for keys in data:
         current_data = data[keys]
-        if not (len(current_data) == 1):
+        if len(current_data) != 1:
             output[keys] = array2double(current_data)
         else:
             if iscomplexobj(current_data):

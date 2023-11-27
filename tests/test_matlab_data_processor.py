@@ -18,17 +18,18 @@ import os
 
 import matlab
 import pytest
+from numpy import array
+from numpy import ndarray
+
+from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import array2double
 from gemseo_matlab.matlab_data_processor import convert_array_from_matlab
 from gemseo_matlab.matlab_data_processor import convert_array_to_matlab
 from gemseo_matlab.matlab_data_processor import double2array
 from gemseo_matlab.matlab_data_processor import load_matlab_file
-from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import save_matlab_file
-from numpy import array
-from numpy import ndarray
 
-from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
+from .matlab_files import MATLAB_FILES_DIR_PATH
 
 
 def test_pre_process_data():

@@ -15,8 +15,9 @@
 from __future__ import annotations
 
 import pytest
-from gemseo_matlab.engine import get_matlab_engine  # noqa: E402
-from gemseo_matlab.license_manager import LicenseManager  # noqa: E402
+
+from gemseo_matlab.engine import get_matlab_engine
+from gemseo_matlab.license_manager import LicenseManager
 
 
 @pytest.fixture(scope="module")
@@ -28,7 +29,7 @@ def matlab_engine():
 
 
 @pytest.mark.parametrize(
-    "toolbox", (LicenseManager.CURVE_FIT_TOOL, LicenseManager.DISTRIB_COMP_TOOL)
+    "toolbox", [LicenseManager.CURVE_FIT_TOOL, LicenseManager.DISTRIB_COMP_TOOL]
 )
 def test_check_when_adding_toolbox_curve_fit(matlab_engine, toolbox):
     """Check that the license is checked when curve fit toolbox is added in engine."""

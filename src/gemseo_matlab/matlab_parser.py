@@ -155,9 +155,7 @@ class MatlabParser:
 
         if fname != function_name:
             raise NameError(
-                "Function name {} does not match with file name {}.".format(
-                    function_name, fname
-                )
+                f"Function name {function_name} does not match with file name {fname}."
             )
 
         LOGGER.debug("Detected function: %s", fname)

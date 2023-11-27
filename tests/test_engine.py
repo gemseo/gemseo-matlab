@@ -19,9 +19,10 @@ from pathlib import Path
 import matlab
 import numpy as np
 import pytest
-from gemseo_matlab.engine import get_matlab_engine  # noqa: E402
 
-from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
+from gemseo_matlab.engine import get_matlab_engine
+
+from .matlab_files import MATLAB_FILES_DIR_PATH
 
 
 @pytest.fixture(scope="module")
@@ -49,15 +50,15 @@ def execute_function(matlab_engine):
 
 
 @pytest.mark.parametrize(
-    "setup, name, is_found, type_",
-    (
+    ("setup", "name", "is_found", "type_"),
+    [
         (None, "sin", True, "MATLAB-built-in-function"),
         (None, MATLAB_FILES_DIR_PATH, True, "folder"),
         (None, "dummy_test.m", True, "file"),
         (None, "dummy_test.p", True, "P-code-file"),
         (None, "non_existing_file", False, ""),
         (execute_function, "dummy_var", True, "variable"),
-    ),
+    ],
 )
 def test_exist(setup, name, is_found, type_):
     """Test the existence of a built-in functions."""
@@ -98,7 +99,7 @@ def test_execute_error(matlab_engine):
         matlab_engine.execute_function("dummy_test")
 
 
-@pytest.mark.parametrize("x, res", [(2, 4), (3, 9), (4, 16)])
+@pytest.mark.parametrize(("x", "res"), [(2, 4), (3, 9), (4, 16)])
 def test_execute(x, res, matlab_engine):
     """Test the execution of a matlab function."""
     assert res == matlab_engine.execute_function("dummy_test", x, nargout=1)

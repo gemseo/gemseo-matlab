@@ -20,13 +20,14 @@ from pathlib import Path
 import pytest
 from gemseo.algos.design_space import DesignSpace
 from gemseo.core.doe_scenario import DOEScenario
-from gemseo_matlab.engine import get_matlab_engine
-from gemseo_matlab.matlab_data_processor import load_matlab_file  # noqa: E402
-from gemseo_matlab.matlab_discipline import MatlabDiscipline  # noqa: E402
 from numpy import array
 from numpy import compress
 
-from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
+from gemseo_matlab.engine import get_matlab_engine
+from gemseo_matlab.matlab_data_processor import load_matlab_file
+from gemseo_matlab.matlab_discipline import MatlabDiscipline
+
+from .matlab_files import MATLAB_FILES_DIR_PATH
 
 MATLAB_SIMPLE_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test.m"
 MATLAB_PARALLEL_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test_parallel.m"
@@ -185,7 +186,8 @@ def test_search_file_error_two_files_found():
     with pytest.raises(IOError) as excp:
         MatlabDiscipline("dummy_test.m", search_file=MATLAB_FILES_DIR_PATH)
     assert (
-        str(excp.value) == "At least two files dummy_test.m were "
+        str(excp.value)
+        == "At least two files dummy_test.m were "
         "in directory {}\n File one: {};"
         "\n File two: {}.".format(
             MATLAB_FILES_DIR_PATH,
@@ -318,16 +320,14 @@ def test_serialize(tmp_path):
     mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
 
     file_name = "mat_disc.pk"
-    f = open(tmp_path / file_name, "wb")
-    pickle.dump(mat, f)
-    f.close()
+    with open(tmp_path / file_name, "wb") as f:
+        pickle.dump(mat, f)
 
     # Clean lru_cache so a different engine is built
     get_matlab_engine.cache_clear()
 
-    f = open(tmp_path / file_name, "rb")
-    new_disc = pickle.load(f)
-    f.close()
+    with open(tmp_path / file_name, "rb") as f:
+        new_disc = pickle.load(f)
 
     out = new_disc.execute({"x": array([2])})
     assert out["y"] == pytest.approx(4)

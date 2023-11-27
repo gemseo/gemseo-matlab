@@ -34,6 +34,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+from os.path import exists
 from os.path import join
 from pathlib import Path
 from typing import Any
@@ -178,9 +179,6 @@ class MatlabDiscipline(MDODiscipline):
         )
         self.__fct_name = None
 
-        if matlab_data_file:
-            matlab_data_file = Path(matlab_data_file)
-
         matlab_fct = str(matlab_fct)
         if input_names is None or output_names is None:
             parser = MatlabParser()
@@ -188,7 +186,7 @@ class MatlabDiscipline(MDODiscipline):
             if search_file is not None:
                 path = self.search_file(matlab_fct, search_file)
                 parser.parse(path)
-                if matlab_data_file is not None and not matlab_data_file.exists():
+                if matlab_data_file is not None and not exists(str(matlab_data_file)):  # noqa: PTH110
                     matlab_data_file = self.search_file(
                         str(matlab_data_file), search_file, ".mat"
                     )
@@ -225,7 +223,7 @@ class MatlabDiscipline(MDODiscipline):
         self.__check_opt_data = check_opt_data
         self.cleaning_interval = clean_cache_each_n
         self.__init_default_data(
-            str(matlab_data_file),
+            matlab_data_file,
             input_grammar_file,
             output_grammar_file,
             auto_detect_grammar_files,

@@ -298,7 +298,7 @@ class MatlabEngine:
             return method(*args, **kwargs)
 
         except matlab.engine.MatlabExecutionError:
-            LOGGER.error(
+            LOGGER.exception(
                 "Failed to execute Matlab function %s with arguments %s and %s",
                 func_name,
                 str(args),
@@ -416,7 +416,7 @@ class MatlabEngine:
             raise ValueError(
                 f"The variable {item} does not exist in the "
                 f"current {self.__engine_name} workspace."
-            )
+            ) from None
 
     def __del__(self) -> None:
         self.close_session()

@@ -34,7 +34,6 @@ from __future__ import annotations
 import logging
 import os
 import re
-from os.path import exists
 from os.path import join
 from pathlib import Path
 from typing import Any
@@ -52,12 +51,12 @@ from gemseo.core.parallel_execution.callable_parallel_execution import (
 )
 from gemseo.utils.portable_path import to_os_specific
 
-from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.engine import MatlabEngine
+from gemseo_matlab.engine import get_matlab_engine
+from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import convert_array_from_matlab
 from gemseo_matlab.matlab_data_processor import double2array
 from gemseo_matlab.matlab_data_processor import load_matlab_file
-from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import save_matlab_file
 from gemseo_matlab.matlab_parser import MatlabParser
 
@@ -179,6 +178,9 @@ class MatlabDiscipline(MDODiscipline):
         )
         self.__fct_name = None
 
+        if matlab_data_file:
+            matlab_data_file = Path(matlab_data_file)
+
         matlab_fct = str(matlab_fct)
         if input_names is None or output_names is None:
             parser = MatlabParser()
@@ -186,7 +188,7 @@ class MatlabDiscipline(MDODiscipline):
             if search_file is not None:
                 path = self.search_file(matlab_fct, search_file)
                 parser.parse(path)
-                if matlab_data_file is not None and not exists(str(matlab_data_file)):
+                if matlab_data_file is not None and not matlab_data_file.exists():
                     matlab_data_file = self.search_file(
                         str(matlab_data_file), search_file, ".mat"
                     )
@@ -223,7 +225,7 @@ class MatlabDiscipline(MDODiscipline):
         self.__check_opt_data = check_opt_data
         self.cleaning_interval = clean_cache_each_n
         self.__init_default_data(
-            matlab_data_file,
+            str(matlab_data_file),
             input_grammar_file,
             output_grammar_file,
             auto_detect_grammar_files,
@@ -310,10 +312,10 @@ class MatlabDiscipline(MDODiscipline):
                             file_name, root_dir
                         )
                         msg += f"\n File one: {file_path};"
-                        msg += f"\n File two: {join(subdir, file_loc)}."
+                        msg += f"\n File two: {join(subdir, file_loc)}."  # noqa: PTH118
                         raise OSError(msg)
                     found_file = True
-                    file_path = join(subdir, file_loc)
+                    file_path = join(subdir, file_loc)  # noqa: PTH118
                     dir_name = subdir
 
         if not found_file:
@@ -475,16 +477,17 @@ class MatlabDiscipline(MDODiscipline):
         for i, name in enumerate(conventional_jac_names):
             try:
                 idx = self.__jac_output_names.index(name)
-                new_indices[i] = self.__jac_output_indices[idx]
-            except ValueError:
+            except ValueError:  # noqa: PERF203
                 not_found.append(name)
+            else:
+                new_indices[i] = self.__jac_output_indices[idx]
 
         if not_found:
             raise ValueError(
-                "Jacobian terms {} are not found in the "
+                f"Jacobian terms {not_found} are not found in the "
                 "list of conventional names. It is reminded that "
                 "jacobian terms' name should be "
-                "such as 'jac_dout_din'".format(not_found)
+                "such as 'jac_dout_din'"
             )
 
         self.__jac_output_names = conventional_jac_names
@@ -525,11 +528,7 @@ class MatlabDiscipline(MDODiscipline):
         Returns:
             The jacobian matrix name of output with respect to input.
         """
-        return str(
-            "{prefix}d{outv}_d{inv}".format(
-                prefix=self.JAC_PREFIX, outv=out_var, inv=in_var
-            )
-        )
+        return str(f"{self.JAC_PREFIX}d{out_var}_d{in_var}")
 
     def check_input_data(  # noqa: D102
         self,
@@ -566,7 +565,7 @@ class MatlabDiscipline(MDODiscipline):
             )
 
         except matlab.engine.MatlabExecutionError:
-            LOGGER.error("Discipline: %s execution failed", self.name)
+            LOGGER.exception("Discipline: %s execution failed", self.name)
             raise
 
         # filter output values if jacobian is returned
@@ -578,13 +577,15 @@ class MatlabDiscipline(MDODiscipline):
             out_vals = np.delete(out_vals, self.__jac_output_indices)
             # --> now out_vals only contains output responses (no jacobian)
 
-        if self.cleaning_interval is not None:
-            if self._n_calls.value % self.cleaning_interval == 0:
-                self.__engine.execute_function("clear", "all", nargout=0)
-                LOGGER.info(
-                    "MATLAB cache cleaned: Discipline called %s times",
-                    self._n_calls.value,
-                )
+        if (
+            self.cleaning_interval is not None
+            and self._n_calls.value % self.cleaning_interval == 0
+        ):
+            self.__engine.execute_function("clear", "all", nargout=0)
+            LOGGER.info(
+                "MATLAB cache cleaned: Discipline called %s times",
+                self._n_calls.value,
+            )
 
         out_names = self.__outputs
 
@@ -647,7 +648,7 @@ class MatlabDiscipline(MDODiscipline):
             The updated data.
         """
         for key, value in other_data.items():
-            if key in data.keys():
+            if key in data:
                 data[key] = value
 
         return data

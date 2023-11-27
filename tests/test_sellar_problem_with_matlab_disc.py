@@ -17,11 +17,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-# skip if matlab API is not found
+# skip if matlab API is not found.
 pytest.importorskip("matlab")
 
+from gemseo import create_discipline  # noqa: E402
+from gemseo import create_scenario  # noqa: E402
 from gemseo.algos.design_space import DesignSpace  # noqa: E402
-from gemseo import create_discipline, create_scenario  # noqa: E402
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 

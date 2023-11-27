@@ -17,16 +17,17 @@ from __future__ import annotations
 import re
 
 import pytest
-from gemseo_matlab.matlab_parser import MatlabParser  # noqa: E402
 
-from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
+from gemseo_matlab.matlab_parser import MatlabParser
+
+from .matlab_files import MATLAB_FILES_DIR_PATH
 
 # TODO: change message because scripts not allowed
 
 
 @pytest.mark.parametrize(
-    "error, match_pattern, path",
-    (
+    ("error", "match_pattern", "path"),
+    [
         (
             ValueError,
             "The given file {} should either be a matlab function or script.",
@@ -59,7 +60,8 @@ from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
         ),
         (
             NameError,
-            "Function name dummy_test_wrong_name does not match with file name dummy_test.",
+            "Function name dummy_test_wrong_name does not match with file name "
+            "dummy_test.",
             MATLAB_FILES_DIR_PATH / "dummy_test_wrong_name.m",
         ),
         (
@@ -77,7 +79,7 @@ from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
             "The given file {} is not a matlab function.",
             MATLAB_FILES_DIR_PATH / "not_a_matlab_function.m",
         ),
-    ),
+    ],
 )
 def test_errors(error, match_pattern, path):
     """Test that exception is raised if file is a directory."""

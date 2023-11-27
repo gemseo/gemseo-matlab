@@ -9,3 +9,4 @@ project_is_open_source: true
 project_name_suffix: matlab
 project_slug: gemseo_matlab
 short_description: MATLAB wrapper for GEMSEO
+use_gemseo_develop: true

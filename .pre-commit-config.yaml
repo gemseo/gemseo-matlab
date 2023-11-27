@@ -72,7 +72,7 @@ repos:
       args: [--py38-plus]
 
 - repo: https://github.com/psf/black
-  rev: 23.10.1
+  rev: 23.11.0
   hooks:
     - id: black
 
@@ -100,7 +100,7 @@ repos:
     - id: nbstripout
 
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.7.0
+  rev: 1.7.1
   hooks:
     - id: nbqa-black
     - id: nbqa-pyupgrade

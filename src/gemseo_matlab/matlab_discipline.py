@@ -29,6 +29,7 @@ which enables to automatically create a wrapper of any Matlab function.
 This class can be used in order to interface any Matlab code
 and to use it inside a MDO process.
 """
+
 from __future__ import annotations
 
 import logging
@@ -101,11 +102,9 @@ class MatlabDiscipline(MDODiscipline):
 
     JAC_PREFIX: ClassVar[str] = "jac_"
 
-    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union(
-        [
-            "_MatlabDiscipline__engine",
-        ]
-    )
+    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union([
+        "_MatlabDiscipline__engine",
+    ])
 
     __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: Final[str] = "matlab_engine_name"
 
@@ -213,11 +212,13 @@ class MatlabDiscipline(MDODiscipline):
         self.__outputs_size = {var: -1 for var in self.__outputs}
 
         # self.outputs can be filtered here
-        self.__is_jac_returned_by_func = is_jac_returned_by_func
+
         self.__jac_output_names = []
         self.__jac_output_indices = []
+        self.__is_jac_returned_by_func = is_jac_returned_by_func
         if self.__is_jac_returned_by_func:
             self.__filter_jacobian_in_outputs()
+            self.__reorder_and_check_jacobian_consistency()
 
         self.__check_function(function_path, add_subfold_path)
         self.__check_opt_data = check_opt_data
@@ -229,9 +230,6 @@ class MatlabDiscipline(MDODiscipline):
             auto_detect_grammar_files,
         )
         self.data_processor = MatlabDataProcessor()
-
-        if self.__is_jac_returned_by_func:
-            self.__reorder_and_check_jacobian_consistency()
 
     def __setstate__(
         self,
@@ -567,7 +565,6 @@ class MatlabDiscipline(MDODiscipline):
             raise
 
         # filter output values if jacobian is returned
-        jac_vals = []
 
         if self.__is_jac_returned_by_func:
             out_vals = np.array(out_vals, dtype=object)
@@ -601,35 +598,53 @@ class MatlabDiscipline(MDODiscipline):
             self.__is_size_known = True
 
         if self.__is_jac_returned_by_func:
-            # fill jac dict
-            self._init_jacobian()
-            cpt = 0
-            for out_name in self.__outputs:
-                self.jac[out_name] = {}
-                for in_name in self.__inputs:
-                    self.jac[out_name][in_name] = np.atleast_2d(jac_vals[cpt])
+            self.__store_jacobian(jac_vals)
 
-                    if self.jac[out_name][in_name].shape != (
-                        self.__outputs_size[out_name],
-                        self.__inputs_size[in_name],
-                    ):
-                        raise ValueError(
-                            "Jacobian term 'jac_d{}_d{}' "
-                            "has the wrong size {} whereas it should "
-                            "be {}.".format(
-                                out_name,
-                                in_name,
-                                self.jac[out_name][in_name].shape,
-                                (
-                                    self.__outputs_size[out_name],
-                                    self.__inputs_size[in_name],
-                                ),
-                            )
+    def __store_jacobian(self, jac_vals: list[float]) -> None:
+        """Store the jacobian.
+
+        Args:
+            jac_vals: The values of the jacobian.
+        """
+        # Revert the data processing so that the data converters can work on data
+        # compliant the grammars.
+        processor = self.data_processor
+
+        if processor is not None:
+            self.local_data = processor.post_process_data(self._local_data)
+
+        self._init_jacobian()
+
+        if processor is not None:
+            self.local_data = processor.pre_process_data(self._local_data)
+
+        cpt = 0
+        for out_name in self.__outputs:
+            self.jac[out_name] = {}
+            for in_name in self.__inputs:
+                self.jac[out_name][in_name] = np.atleast_2d(jac_vals[cpt])
+
+                if self.jac[out_name][in_name].shape != (
+                    self.__outputs_size[out_name],
+                    self.__inputs_size[in_name],
+                ):
+                    raise ValueError(
+                        "Jacobian term 'jac_d{}_d{}' "
+                        "has the wrong size {} whereas it should "
+                        "be {}.".format(
+                            out_name,
+                            in_name,
+                            self.jac[out_name][in_name].shape,
+                            (
+                                self.__outputs_size[out_name],
+                                self.__inputs_size[in_name],
+                            ),
                         )
+                    )
 
-                    cpt += 1
+                cpt += 1
 
-            self._is_linearized = True
+        self._is_linearized = True
 
     @staticmethod
     def __update_data(

@@ -45,6 +45,7 @@ which enables to create only one instance with respect to the ``workspace_name``
 when calling several times the function).
 Following this, :class:`.MatlabEngine` acts like a singleton.
 """
+
 from __future__ import annotations
 
 import logging

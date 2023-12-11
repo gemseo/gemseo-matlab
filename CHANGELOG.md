@@ -26,6 +26,12 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Version 1.0.2 (December 2023)
+
+## Fixed
+
+- Compatibility with GEMSEO version 5.2.
+
 # Version 1.0.1 (September 2023)
 
 ## Fixed

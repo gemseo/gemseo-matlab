@@ -30,6 +30,7 @@ detect inputs and outputs.
 This class is basically used through the :class:`.MatlabDiscipline` class
 in order to build a discipline based on the Matlab function.
 """
+
 from __future__ import annotations
 
 import logging

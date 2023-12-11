@@ -28,6 +28,7 @@ This module contains the :class:`.LicenseManager`
 which enables to check the presence of any toolbox licenses
 of the Matlab installation.
 """
+
 from __future__ import annotations
 
 import logging

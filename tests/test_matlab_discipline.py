@@ -361,13 +361,11 @@ def test_parallel():
     scenario.add_observable("pid")
 
     n_samples = 10
-    scenario.execute(
-        {
-            "algo": "DiagonalDOE",
-            "n_samples": n_samples,
-            "algo_options": {"n_processes": 2},
-        }
-    )
+    scenario.execute({
+        "algo": "DiagonalDOE",
+        "n_samples": n_samples,
+        "algo_options": {"n_processes": 2},
+    })
     outputs, _ = scenario.formulation.opt_problem.database.get_history(
         function_names=["pid", "y"]
     )

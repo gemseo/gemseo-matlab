@@ -32,6 +32,7 @@ The class and functions in this module enables to
 manipulate data from and toward the Matlab workspace.
 It also enables to read and write Matlab data file (.mat).
 """
+
 from __future__ import annotations
 
 import os

@@ -13,8 +13,6 @@ RUN  apt update \
                  git \
                  python3-pip \
                  python3-venv \
-                 python3.8 \
-                 libpython3.8 \
                  python3.9 \
                  libpython3.9 \
                  python3.10 \
@@ -25,17 +23,8 @@ RUN  apt update \
   && apt --yes autoremove \
   && rm -rf /var/lib/apt/lists/*
 
-ARG TOX_VERSION=4.11.1
-
-RUN  pip install pipx \
-  && pipx install 'tox<4' \
-  && pipx install 'tox<4' --suffix 3 \
-  && pipx install tox==$TOX_VERSION --suffix 4 \
+RUN  pip install 'tox<5' \
   && rm -rf $HOME/.cache/pip
-
-# Explicitely update PATH because gitlab runner run the container in a way
-# that prevent .bashrc to be sourced.
-ENV PATH="/root/.local/bin:${PATH}"
 
 # The matlabengine package from PyPI expects matlab to be installed in /usr/local/MATLAB
 RUN  mkdir -p /usr/local \

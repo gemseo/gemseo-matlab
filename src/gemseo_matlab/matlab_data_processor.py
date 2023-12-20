@@ -41,8 +41,6 @@ from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as get_version_of
 from typing import TYPE_CHECKING
 from typing import Final
-from typing import Mapping
-from typing import MutableMapping
 
 import matlab
 import scipy.io
@@ -53,6 +51,8 @@ from numpy import ndarray
 from packaging import version
 
 if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from collections.abc import MutableMapping
     from pathlib import Path
 
 try:

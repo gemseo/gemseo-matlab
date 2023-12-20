@@ -38,12 +38,10 @@ import re
 from os.path import exists
 from os.path import join
 from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import ClassVar
 from typing import Final
-from typing import Mapping
-from typing import MutableMapping
-from typing import Sequence
 
 import matlab.engine
 import numpy as np
@@ -62,6 +60,11 @@ from gemseo_matlab.matlab_data_processor import load_matlab_file
 from gemseo_matlab.matlab_data_processor import save_matlab_file
 from gemseo_matlab.matlab_parser import MatlabParser
 
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from collections.abc import MutableMapping
+    from collections.abc import Sequence
+
 LOGGER = logging.getLogger(__name__)
 
 
@@ -75,7 +78,7 @@ class MatlabDiscipline(MDODiscipline):
         >>> # build the discipline from the MATLAB function "function.m"
         >>> disc = MatlabDiscipline("function.m")
         >>> # Execute the discipline
-        >>> disc.execute({"x" : array([2.]), "y" : array([1.])})
+        >>> disc.execute({"x": array([2.0]), "y": array([1.0])})
         >>>
         >>> # build discipline with initial data from MATLAB file
         >>> disc = MatlabDiscipline("function.m", matlab_data_file="data.mat")
@@ -87,7 +90,7 @@ class MatlabDiscipline(MDODiscipline):
         >>>
         >>> # build discipline with jacobian returned by the matlab function
         >>> disc = MatlabDiscipline("function.m", is_jac_returned_by_func=True)
-        >>> disc.execute({"x" : array([2.]), "y" : array([1.])})
+        >>> disc.execute({"x": array([2.0]), "y": array([1.0])})
         >>> # print jacboian values
         >>> print(disc.jac)
 

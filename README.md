@@ -28,10 +28,10 @@ versions:
 
 | Python | Matlab | matlabengine |
 |:------:|:------:|:------------:|
-| 3.8, 3.9 | r2021b | 9.11.19 |
-| 3.8, 3.9 | r2022a | 9.12.17 |
-| 3.8, 3.9, 3.10 | r2022b | 9.13.9 |
-| 3.8, 3.9, 3.10 | r2023a | 9.14.3 |
+| 3.9 | r2021b | 9.11.19 |
+| 3.9 | r2022a | 9.12.17 |
+| 3.9, 3.10 | r2022b | 9.13.9 |
+| 3.9, 3.10 | r2023a | 9.14.3 |
 
 To make sure that MATLAB works fine through the Python API, start a
 Python interpreter and check that there is no error when executing

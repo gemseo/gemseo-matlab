@@ -28,14 +28,18 @@ This module contains the :class:`.LicenseManager`
 which enables to check the presence of any toolbox licenses
 of the Matlab installation.
 """
+
 from __future__ import annotations
 
 import logging
 from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import ClassVar
-from typing import Iterable
 
 from gemseo_matlab.engine import MatlabEngine
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 LOGGER = logging.getLogger(__name__)
 

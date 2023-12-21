@@ -29,6 +29,7 @@ which enables to automatically create a wrapper of any Matlab function.
 This class can be used in order to interface any Matlab code
 and to use it inside a MDO process.
 """
+
 from __future__ import annotations
 
 import logging
@@ -37,12 +38,10 @@ import re
 from os.path import exists
 from os.path import join
 from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import ClassVar
 from typing import Final
-from typing import Mapping
-from typing import MutableMapping
-from typing import Sequence
 
 import matlab.engine
 import numpy as np
@@ -52,14 +51,19 @@ from gemseo.core.parallel_execution.callable_parallel_execution import (
 )
 from gemseo.utils.portable_path import to_os_specific
 
-from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.engine import MatlabEngine
+from gemseo_matlab.engine import get_matlab_engine
+from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import convert_array_from_matlab
 from gemseo_matlab.matlab_data_processor import double2array
 from gemseo_matlab.matlab_data_processor import load_matlab_file
-from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import save_matlab_file
 from gemseo_matlab.matlab_parser import MatlabParser
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+    from collections.abc import MutableMapping
+    from collections.abc import Sequence
 
 LOGGER = logging.getLogger(__name__)
 
@@ -74,7 +78,7 @@ class MatlabDiscipline(MDODiscipline):
         >>> # build the discipline from the MATLAB function "function.m"
         >>> disc = MatlabDiscipline("function.m")
         >>> # Execute the discipline
-        >>> disc.execute({"x" : array([2.]), "y" : array([1.])})
+        >>> disc.execute({"x": array([2.0]), "y": array([1.0])})
         >>>
         >>> # build discipline with initial data from MATLAB file
         >>> disc = MatlabDiscipline("function.m", matlab_data_file="data.mat")
@@ -86,7 +90,7 @@ class MatlabDiscipline(MDODiscipline):
         >>>
         >>> # build discipline with jacobian returned by the matlab function
         >>> disc = MatlabDiscipline("function.m", is_jac_returned_by_func=True)
-        >>> disc.execute({"x" : array([2.]), "y" : array([1.])})
+        >>> disc.execute({"x": array([2.0]), "y": array([1.0])})
         >>> # print jacboian values
         >>> print(disc.jac)
 
@@ -101,11 +105,9 @@ class MatlabDiscipline(MDODiscipline):
 
     JAC_PREFIX: ClassVar[str] = "jac_"
 
-    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union(
-        [
-            "_MatlabDiscipline__engine",
-        ]
-    )
+    _ATTR_NOT_TO_SERIALIZE = MDODiscipline._ATTR_NOT_TO_SERIALIZE.union([
+        "_MatlabDiscipline__engine",
+    ])
 
     __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: Final[str] = "matlab_engine_name"
 
@@ -186,7 +188,7 @@ class MatlabDiscipline(MDODiscipline):
             if search_file is not None:
                 path = self.search_file(matlab_fct, search_file)
                 parser.parse(path)
-                if matlab_data_file is not None and not exists(str(matlab_data_file)):
+                if matlab_data_file is not None and not exists(str(matlab_data_file)):  # noqa: PTH110
                     matlab_data_file = self.search_file(
                         str(matlab_data_file), search_file, ".mat"
                     )
@@ -213,11 +215,13 @@ class MatlabDiscipline(MDODiscipline):
         self.__outputs_size = {var: -1 for var in self.__outputs}
 
         # self.outputs can be filtered here
-        self.__is_jac_returned_by_func = is_jac_returned_by_func
+
         self.__jac_output_names = []
         self.__jac_output_indices = []
+        self.__is_jac_returned_by_func = is_jac_returned_by_func
         if self.__is_jac_returned_by_func:
             self.__filter_jacobian_in_outputs()
+            self.__reorder_and_check_jacobian_consistency()
 
         self.__check_function(function_path, add_subfold_path)
         self.__check_opt_data = check_opt_data
@@ -229,9 +233,6 @@ class MatlabDiscipline(MDODiscipline):
             auto_detect_grammar_files,
         )
         self.data_processor = MatlabDataProcessor()
-
-        if self.__is_jac_returned_by_func:
-            self.__reorder_and_check_jacobian_consistency()
 
     def __setstate__(
         self,
@@ -310,10 +311,10 @@ class MatlabDiscipline(MDODiscipline):
                             file_name, root_dir
                         )
                         msg += f"\n File one: {file_path};"
-                        msg += f"\n File two: {join(subdir, file_loc)}."
+                        msg += f"\n File two: {join(subdir, file_loc)}."  # noqa: PTH118
                         raise OSError(msg)
                     found_file = True
-                    file_path = join(subdir, file_loc)
+                    file_path = join(subdir, file_loc)  # noqa: PTH118
                     dir_name = subdir
 
         if not found_file:
@@ -475,16 +476,17 @@ class MatlabDiscipline(MDODiscipline):
         for i, name in enumerate(conventional_jac_names):
             try:
                 idx = self.__jac_output_names.index(name)
-                new_indices[i] = self.__jac_output_indices[idx]
-            except ValueError:
+            except ValueError:  # noqa: PERF203
                 not_found.append(name)
+            else:
+                new_indices[i] = self.__jac_output_indices[idx]
 
         if not_found:
             raise ValueError(
-                "Jacobian terms {} are not found in the "
+                f"Jacobian terms {not_found} are not found in the "
                 "list of conventional names. It is reminded that "
                 "jacobian terms' name should be "
-                "such as 'jac_dout_din'".format(not_found)
+                "such as 'jac_dout_din'"
             )
 
         self.__jac_output_names = conventional_jac_names
@@ -525,11 +527,7 @@ class MatlabDiscipline(MDODiscipline):
         Returns:
             The jacobian matrix name of output with respect to input.
         """
-        return str(
-            "{prefix}d{outv}_d{inv}".format(
-                prefix=self.JAC_PREFIX, outv=out_var, inv=in_var
-            )
-        )
+        return str(f"{self.JAC_PREFIX}d{out_var}_d{in_var}")
 
     def check_input_data(  # noqa: D102
         self,
@@ -566,11 +564,10 @@ class MatlabDiscipline(MDODiscipline):
             )
 
         except matlab.engine.MatlabExecutionError:
-            LOGGER.error("Discipline: %s execution failed", self.name)
+            LOGGER.exception("Discipline: %s execution failed", self.name)
             raise
 
         # filter output values if jacobian is returned
-        jac_vals = []
 
         if self.__is_jac_returned_by_func:
             out_vals = np.array(out_vals, dtype=object)
@@ -578,13 +575,15 @@ class MatlabDiscipline(MDODiscipline):
             out_vals = np.delete(out_vals, self.__jac_output_indices)
             # --> now out_vals only contains output responses (no jacobian)
 
-        if self.cleaning_interval is not None:
-            if self._n_calls.value % self.cleaning_interval == 0:
-                self.__engine.execute_function("clear", "all", nargout=0)
-                LOGGER.info(
-                    "MATLAB cache cleaned: Discipline called %s times",
-                    self._n_calls.value,
-                )
+        if (
+            self.cleaning_interval is not None
+            and self._n_calls.value % self.cleaning_interval == 0
+        ):
+            self.__engine.execute_function("clear", "all", nargout=0)
+            LOGGER.info(
+                "MATLAB cache cleaned: Discipline called %s times",
+                self._n_calls.value,
+            )
 
         out_names = self.__outputs
 
@@ -602,35 +601,53 @@ class MatlabDiscipline(MDODiscipline):
             self.__is_size_known = True
 
         if self.__is_jac_returned_by_func:
-            # fill jac dict
-            self._init_jacobian()
-            cpt = 0
-            for out_name in self.__outputs:
-                self.jac[out_name] = {}
-                for in_name in self.__inputs:
-                    self.jac[out_name][in_name] = np.atleast_2d(jac_vals[cpt])
+            self.__store_jacobian(jac_vals)
 
-                    if self.jac[out_name][in_name].shape != (
-                        self.__outputs_size[out_name],
-                        self.__inputs_size[in_name],
-                    ):
-                        raise ValueError(
-                            "Jacobian term 'jac_d{}_d{}' "
-                            "has the wrong size {} whereas it should "
-                            "be {}.".format(
-                                out_name,
-                                in_name,
-                                self.jac[out_name][in_name].shape,
-                                (
-                                    self.__outputs_size[out_name],
-                                    self.__inputs_size[in_name],
-                                ),
-                            )
+    def __store_jacobian(self, jac_vals: list[float]) -> None:
+        """Store the jacobian.
+
+        Args:
+            jac_vals: The values of the jacobian.
+        """
+        # Revert the data processing so that the data converters can work on data
+        # compliant the grammars.
+        processor = self.data_processor
+
+        if processor is not None:
+            self.local_data = processor.post_process_data(self._local_data)
+
+        self._init_jacobian()
+
+        if processor is not None:
+            self.local_data = processor.pre_process_data(self._local_data)
+
+        cpt = 0
+        for out_name in self.__outputs:
+            self.jac[out_name] = {}
+            for in_name in self.__inputs:
+                self.jac[out_name][in_name] = np.atleast_2d(jac_vals[cpt])
+
+                if self.jac[out_name][in_name].shape != (
+                    self.__outputs_size[out_name],
+                    self.__inputs_size[in_name],
+                ):
+                    raise ValueError(
+                        "Jacobian term 'jac_d{}_d{}' "
+                        "has the wrong size {} whereas it should "
+                        "be {}.".format(
+                            out_name,
+                            in_name,
+                            self.jac[out_name][in_name].shape,
+                            (
+                                self.__outputs_size[out_name],
+                                self.__inputs_size[in_name],
+                            ),
                         )
+                    )
 
-                    cpt += 1
+                cpt += 1
 
-            self._is_linearized = True
+        self._is_linearized = True
 
     @staticmethod
     def __update_data(
@@ -647,7 +664,7 @@ class MatlabDiscipline(MDODiscipline):
             The updated data.
         """
         for key, value in other_data.items():
-            if key in data.keys():
+            if key in data:
                 data[key] = value
 
         return data

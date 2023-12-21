@@ -30,6 +30,7 @@ detect inputs and outputs.
 This class is basically used through the :class:`.MatlabDiscipline` class
 in order to build a discipline based on the Matlab function.
 """
+
 from __future__ import annotations
 
 import logging
@@ -155,9 +156,7 @@ class MatlabParser:
 
         if fname != function_name:
             raise NameError(
-                "Function name {} does not match with file name {}.".format(
-                    function_name, fname
-                )
+                f"Function name {function_name} does not match with file name {fname}."
             )
 
         LOGGER.debug("Detected function: %s", fname)

@@ -36,7 +36,7 @@ fastjsonschema==2.19.0
     # via gemseo
 fonttools==4.47.2
     # via matplotlib
-gemseo[all]==5.2.1.dev37+g694a89cf
+gemseo[all]==5.2.1.dev49+g6a4a38aa
     # via
     #   gemseo
     #   gemseo-matlab (pyproject.toml)
@@ -83,7 +83,7 @@ numpy==1.26.2
     #   scipy
 openpyxl==3.1.2
     # via gemseo
-openturns==1.21
+openturns==1.22
     # via gemseo
 packaging==23.2
     # via
@@ -111,7 +111,7 @@ pydoe2==1.3.0
     # via gemseo
 pyparsing==3.1.1
     # via matplotlib
-pytest==8.0.0rc1
+pytest==7.4.4
     # via
     #   gemseo-matlab (pyproject.toml)
     #   pytest-cov

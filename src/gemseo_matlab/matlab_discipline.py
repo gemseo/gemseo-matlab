@@ -211,8 +211,8 @@ class MatlabDiscipline(MDODiscipline):
         self.__outputs = output_data
         # init size with -1 -> means that size is currently unknown
         self.__is_size_known = False
-        self.__inputs_size = {var: -1 for var in self.__inputs}
-        self.__outputs_size = {var: -1 for var in self.__outputs}
+        self.__inputs_size = dict.fromkeys(self.__inputs, -1)
+        self.__outputs_size = dict.fromkeys(self.__outputs, -1)
 
         # self.outputs can be filtered here
 

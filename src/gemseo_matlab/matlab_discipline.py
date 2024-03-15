@@ -307,11 +307,12 @@ class MatlabDiscipline(MDODiscipline):
             for file_loc in files:
                 if file_loc == file_name:
                     if found_file:
-                        msg = "At least two files {} were in directory {}".format(
-                            file_name, root_dir
+                        msg = (
+                            f"At least two files {file_name} "
+                            f"were in directory {root_dir}"
+                            f"\n File one: {file_path};"
+                            f"\n File two: {join(subdir, file_loc)}."  # noqa: PTH118
                         )
-                        msg += f"\n File one: {file_path};"
-                        msg += f"\n File two: {join(subdir, file_loc)}."  # noqa: PTH118
                         raise OSError(msg)
                     found_file = True
                     file_path = join(subdir, file_loc)  # noqa: PTH118
@@ -677,8 +678,9 @@ class MatlabDiscipline(MDODiscipline):
         """
         file_path = Path(file_path)
         save_matlab_file(self.local_data, file_path=file_path)
-        msg = "Local data of discipline {} exported to {}.mat successfully.".format(
-            self.name, file_path.name
+        msg = (
+            f"Local data of discipline {self.name} exported to "
+            f"{file_path.name}.mat successfully."
         )
         LOGGER.info(msg)
 

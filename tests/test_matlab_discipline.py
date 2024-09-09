@@ -19,7 +19,7 @@ from pathlib import Path
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
-from gemseo.core.doe_scenario import DOEScenario
+from gemseo.scenarios.doe_scenario import DOEScenario
 from numpy import array
 from numpy import compress
 
@@ -366,7 +366,7 @@ def test_parallel():
         "n_samples": n_samples,
         "algo_options": {"n_processes": 2},
     })
-    outputs, _ = scenario.formulation.opt_problem.database.get_history(
+    outputs, _ = scenario.formulation.optimization_problem.database.get_history(
         function_names=["pid", "y"]
     )
 

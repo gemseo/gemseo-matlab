@@ -581,7 +581,7 @@ class MatlabDiscipline(MDODiscipline):
             and self._n_calls.value % self.cleaning_interval == 0
         ):
             self.__engine.execute_function("clear", "all", nargout=0)
-            LOGGER.info(
+            LOGGER.debug(
                 "MATLAB cache cleaned: Discipline called %s times",
                 self._n_calls.value,
             )

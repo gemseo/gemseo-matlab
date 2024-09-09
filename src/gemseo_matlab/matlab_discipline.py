@@ -319,7 +319,8 @@ class MatlabDiscipline(MDODiscipline):
                     dir_name = subdir
 
         if not found_file:
-            raise OSError(f"No file: {file_name}, found in directory: {root_dir}.")
+            msg = f"No file: {file_name}, found in directory: {root_dir}."
+            raise OSError(msg)
 
         LOGGER.info("File: %s found in directory: %s.", file_name, dir_name)
         return file_path
@@ -466,12 +467,13 @@ class MatlabDiscipline(MDODiscipline):
         new_indices = [-1] * len(conventional_jac_names)
 
         if len(conventional_jac_names) != len(self.__jac_output_names):
-            raise ValueError(
+            msg = (
                 "The number of jacobian outputs does "
                 "not correspond to what it should be. "
                 "Make sure that all outputs have a jacobian "
                 "matrix with respect to inputs."
             )
+            raise ValueError(msg)
 
         not_found = []
         for i, name in enumerate(conventional_jac_names):
@@ -483,12 +485,13 @@ class MatlabDiscipline(MDODiscipline):
                 new_indices[i] = self.__jac_output_indices[idx]
 
         if not_found:
-            raise ValueError(
+            msg = (
                 f"Jacobian terms {not_found} are not found in the "
                 "list of conventional names. It is reminded that "
                 "jacobian terms' name should be "
                 "such as 'jac_dout_din'"
             )
+            raise ValueError(msg)
 
         self.__jac_output_names = conventional_jac_names
         self.__jac_output_indices = new_indices
@@ -632,7 +635,7 @@ class MatlabDiscipline(MDODiscipline):
                     self.__outputs_size[out_name],
                     self.__inputs_size[in_name],
                 ):
-                    raise ValueError(
+                    msg = (
                         "Jacobian term 'jac_d{}_d{}' "
                         "has the wrong size {} whereas it should "
                         "be {}.".format(
@@ -645,6 +648,7 @@ class MatlabDiscipline(MDODiscipline):
                             ),
                         )
                     )
+                    raise ValueError(msg)
 
                 cpt += 1
 
@@ -694,7 +698,6 @@ class MatlabDiscipline(MDODiscipline):
         if cleaning_interval is not None:
             is_integer = cleaning_interval % 1 == 0
             if not is_integer:
-                raise ValueError(
-                    "The parameter 'cleaning_interval' argument must be an integer."
-                )
+                msg = "The parameter 'cleaning_interval' argument must be an integer."
+                raise ValueError(msg)
         self.__cleaning_interval = cleaning_interval

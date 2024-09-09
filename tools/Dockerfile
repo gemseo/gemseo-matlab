@@ -23,7 +23,7 @@ RUN  apt update \
   && apt --yes autoremove \
   && rm -rf /var/lib/apt/lists/*
 
-RUN  pip install 'tox<5' \
+RUN  pip install 'tox-uv' \
   && rm -rf $HOME/.cache/pip
 
 # The matlabengine package from PyPI expects matlab to be installed in /usr/local/MATLAB

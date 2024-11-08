@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -994,6 +994,11 @@ of the Matlab installation.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1042,7 +1047,7 @@ Parallel computing launch can be used with this tool.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>engine</code></b>
+            <b><code>engine</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_matlab.engine.MatlabEngine" href="../engine/#gemseo_matlab.engine.MatlabEngine">MatlabEngine</a></code>)
           –
           <div class="doc-md-description">
@@ -1050,6 +1055,11 @@ Parallel computing launch can be used with this tool.</p>
           </div>
         </li>
     </ul>
+
+
+
+
+
 
                   <details class="quote">
                     <summary>Source code in <code>src/gemseo_matlab/license_manager.py</code></summary>
@@ -1147,7 +1157,7 @@ toolboxes are available.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>licenses</code></b>
+            <b><code>licenses</code></b>
               (<code><a class="autorefs autorefs-external" title="collections.abc.Iterable" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterable">Iterable</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>, default:
                   <code>()</code>
 )
@@ -1158,7 +1168,7 @@ If empty, use the already existing engine licenses.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>pause_frac</code></b>
+            <b><code>pause_frac</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
                   <code>60</code>
 )
@@ -1168,7 +1178,7 @@ If empty, use the already existing engine licenses.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>pause_const</code></b>
+            <b><code>pause_const</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#float">float</a></code>, default:
                   <code>20</code>
 )
@@ -1288,7 +1298,7 @@ The waiting time is estimated at each try with the following formula:
 <a href="#gemseo_matlab.license_manager.LicenseManager.start_parallel_computing" class="headerlink" title="Permanent link">&para;</a></h6>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">start_parallel_computing</span><span class="p">(</span>
     <span class="n">n_parallel_workers</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="n">cluster_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="gemseo_matlab.engine.MatlabEngine.ParallelType" href="../engine/#gemseo_matlab.engine.MatlabEngine.ParallelType">ParallelType</a></span> <span class="o">=</span> <span class="n">MatlabEngine</span><span class="o">.</span><span class="n">ParallelType</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">,</span>
+    <span class="n">cluster_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="gemseo_matlab.engine.MatlabEngine.ParallelType" href="../engine/#gemseo_matlab.engine.MatlabEngine.ParallelType">ParallelType</a></span> <span class="o">=</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo_matlab.engine.MatlabEngine.ParallelType.LOCAL" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo_matlab.engine.html#gemseo_matlab.engine.MatlabEngine.ParallelType.LOCAL">LOCAL</a></span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
@@ -1300,7 +1310,7 @@ The waiting time is estimated at each try with the following formula:
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>n_parallel_workers</code></b>
+            <b><code>n_parallel_workers</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
                   <code>4</code>
 )
@@ -1311,7 +1321,7 @@ Maximum number allowed is 12</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>cluster_name</code></b>
+            <b><code>cluster_name</code></b>
               (<code><a class="autorefs autorefs-internal" title="gemseo_matlab.engine.MatlabEngine.ParallelType" href="../engine/#gemseo_matlab.engine.MatlabEngine.ParallelType">ParallelType</a></code>, default:
                   <code><a class="autorefs autorefs-external" title="gemseo_matlab.engine.MatlabEngine.ParallelType.LOCAL" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo_matlab.engine.html#gemseo_matlab.engine.MatlabEngine.ParallelType.LOCAL">LOCAL</a></code>
 )
@@ -1419,10 +1429,10 @@ Maximum number allowed is 12</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       

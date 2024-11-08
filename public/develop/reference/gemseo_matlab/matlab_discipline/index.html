@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../images/favicon.ico">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.44">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.0253249f.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
@@ -703,15 +703,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.cleaning_interval" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;cleaning_interval
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.engine" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;engine
@@ -748,15 +739,6 @@
   <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.save_data_to_matlab" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_data_to_matlab
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.search_file" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;search_file
     </span>
   </a>
   
@@ -902,15 +884,6 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.cleaning_interval" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;cleaning_interval
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.engine" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-attribute"></code>&nbsp;engine
@@ -947,15 +920,6 @@
   <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.save_data_to_matlab" class="md-nav__link">
     <span class="md-ellipsis">
       <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;save_data_to_matlab
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.search_file" class="md-nav__link">
-    <span class="md-ellipsis">
-      <code class="doc-symbol doc-symbol-toc doc-symbol-method"></code>&nbsp;search_file
     </span>
   </a>
   
@@ -1031,6 +995,11 @@ and to use it inside a MDO process.</p>
 
 
 
+
+
+
+
+
   <div class="doc doc-children">
 
 
@@ -1050,29 +1019,23 @@ and to use it inside a MDO process.</p>
 
 <a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline" class="headerlink" title="Permanent link">&para;</a></h4>
 <div class="doc-signature highlight"><pre><span></span><code><span class="nf">MatlabDiscipline</span><span class="p">(</span>
-    <span class="n">matlab_fct</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span><span class="p">,</span>
-    <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">output_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">matlab_function_path</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span><span class="p">,</span>
+    <span class="n">input_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">output_names</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">add_subfold_path</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">search_file</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">root_search_path</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">matlab_engine_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;matlab&quot;</span><span class="p">,</span>
-    <span class="n">matlab_data_file</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">clean_cache_each_n</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">input_grammar_file</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">output_grammar_file</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">auto_detect_grammar_files</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">matlab_data_path</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">cleaning_interval</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">check_opt_data</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">cache_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.CacheType" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.CacheType">CacheType</a></span> <span class="o">=</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">CacheType</span><span class="o">.</span><span class="n">SIMPLE</span><span class="p">,</span>
-    <span class="n">grammar_type</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.GrammarType" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.GrammarType">GrammarType</a></span> <span class="o">=</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">GrammarType</span><span class="o">.</span><span class="n">JSON</span><span class="p">,</span>
-    <span class="n">cache_file_path</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">is_jac_returned_by_func</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
             <p class="doc doc-class-bases">
-              Bases: <code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline">MDODiscipline</a></code></p>
+              Bases: <code><span title="gemseo.core.discipline.discipline.Discipline">Discipline</span></code></p>
 
 
         <p>Base wrapper for matlab discipline.</p>
@@ -1092,7 +1055,7 @@ GEMSEO. Can be used on encrypted, MATLAB build-in and user made function.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">disc</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># build discipline from MATLAB file located in matlab_files directory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">disc</span> <span class="o">=</span> <span class="n">MatlabDiscipline</span><span class="p">(</span><span class="s2">&quot;function.m&quot;</span><span class="p">,</span> <span class="n">search_file</span><span class="o">=</span><span class="s2">&quot;matlab_files&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">disc</span> <span class="o">=</span> <span class="n">MatlabDiscipline</span><span class="p">(</span><span class="s2">&quot;function.m&quot;</span><span class="p">,</span> <span class="n">root_search_path</span><span class="o">=</span><span class="s2">&quot;matlab_files&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># build discipline with jacobian returned by the matlab function</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">disc</span> <span class="o">=</span> <span class="n">MatlabDiscipline</span><span class="p">(</span><span class="s2">&quot;function.m&quot;</span><span class="p">,</span> <span class="n">is_jac_returned_by_func</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1116,7 +1079,7 @@ in any order.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>matlab_fct</code></b>
+            <b><code>matlab_function_path</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>)
           –
           <div class="doc-md-description">
@@ -1124,9 +1087,9 @@ in any order.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>input_names</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>, default:
-                  <code>None</code>
+            <b><code>input_names</code></b>
+              (<code><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>, default:
+                  <code>()</code>
 )
           –
           <div class="doc-md-description">
@@ -1134,9 +1097,9 @@ in any order.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>output_names</code></b>
-              (<code><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>] | None</code>, default:
-                  <code>None</code>
+            <b><code>output_names</code></b>
+              (<code><a class="autorefs autorefs-external" title="collections.abc.Sequence" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence">Sequence</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>, default:
+                  <code>()</code>
 )
           –
           <div class="doc-md-description">
@@ -1144,7 +1107,7 @@ in any order.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>add_subfold_path</code></b>
+            <b><code>add_subfold_path</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
                   <code>False</code>
 )
@@ -1154,9 +1117,9 @@ in any order.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>search_file</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
-                  <code>None</code>
+            <b><code>root_search_path</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>, default:
+                  <code>&#39;&#39;</code>
 )
           –
           <div class="doc-md-description">
@@ -1164,84 +1127,38 @@ in any order.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>matlab_engine_name</code></b>
+            <b><code>matlab_engine_name</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
                   <code>&#39;matlab&#39;</code>
 )
           –
           <div class="doc-md-description">
-            <p>The name of the singleton used for this discipline.</p>
+            <p>The name of the matlab engine used for this discipline.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>matlab_data_file</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a> | None</code>, default:
-                  <code>None</code>
+            <b><code>matlab_data_path</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>, default:
+                  <code>&#39;&#39;</code>
 )
           –
           <div class="doc-md-description">
-            <p>The .mat file or path containing default values of data.</p>
+            <p>The .mat path containing the default values of data.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>name</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
-                  <code>None</code>
+            <b><code>cleaning_interval</code></b>
+              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></code>, default:
+                  <code>0</code>
 )
           –
           <div class="doc-md-description">
-            <p>The name of discipline.</p>
+            <p>The iteration interval at which matlab workspace is
+cleaned.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>clean_cache_each_n</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>Iteration interval at which matlab workspace is cleaned.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>input_grammar_file</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The file for input grammar description,
-if None, name + "_input.json" is used.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>output_grammar_file</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The file for output grammar description.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>auto_detect_grammar_files</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
-                  <code>False</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>If no input and output grammar files
-are provided,
-auto_detect_grammar_files uses a naming convention
-to associate a grammar file to a discipline:
-searches in the "comp_dir" directory containing the
-discipline source file for files basenames
-self.name _input.json and self.name _output.json.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>check_opt_data</code></b>
+            <b><code>check_opt_data</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
                   <code>True</code>
 )
@@ -1252,58 +1169,28 @@ discipline.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
-          <b><code>cache_type</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.CacheType" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.CacheType">CacheType</a></code>, default:
-                  <code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.CacheType.SIMPLE" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.CacheType.SIMPLE">SIMPLE</a></code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The type of cache.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>grammar_type</code></b>
-              (<code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.GrammarType" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.GrammarType">GrammarType</a></code>, default:
-                  <code><a class="autorefs autorefs-external" title="gemseo.core.discipline.MDODiscipline.GrammarType.JSON" href="https://gemseo.readthedocs.io/en/stable/_modules/gemseo.core.discipline.html#gemseo.core.discipline.MDODiscipline.GrammarType.JSON">JSON</a></code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The type of the input and output grammars.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>cache_file_path</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</code>, default:
-                  <code>None</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The file to store the data,
-mandatory when HDF caching is used.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>is_jac_returned_by_func</code></b>
+            <b><code>is_jac_returned_by_func</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>, default:
                   <code>False</code>
 )
           –
           <div class="doc-md-description">
-            <p>If True, the jacobian matrices should be returned
-of matlab function with standard outputs.
-Default is False.
-If True, the conventional name 'jac_dout_din' is used as jacobian
+            <p>Wether the jacobian matrices should be returned
+of matlab function with standard outputs,
+the conventional name 'jac_dout_din' is used as jacobian
 term of any output 'out' with respect to input 'in'.</p>
           </div>
         </li>
     </ul>
 
+
+
+
+
+
                   <details class="quote">
                     <summary>Source code in <code>src/gemseo_matlab/matlab_discipline.py</code></summary>
-                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">116</span>
-<span class="normal">117</span>
-<span class="normal">118</span>
-<span class="normal">119</span>
+                    <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">119</span>
 <span class="normal">120</span>
 <span class="normal">121</span>
 <span class="normal">122</span>
@@ -1388,128 +1275,68 @@ term of any output 'out' with respect to input 'in'.</p>
 <span class="normal">201</span>
 <span class="normal">202</span>
 <span class="normal">203</span>
-<span class="normal">204</span>
-<span class="normal">205</span>
-<span class="normal">206</span>
-<span class="normal">207</span>
-<span class="normal">208</span>
-<span class="normal">209</span>
-<span class="normal">210</span>
-<span class="normal">211</span>
-<span class="normal">212</span>
-<span class="normal">213</span>
-<span class="normal">214</span>
-<span class="normal">215</span>
-<span class="normal">216</span>
-<span class="normal">217</span>
-<span class="normal">218</span>
-<span class="normal">219</span>
-<span class="normal">220</span>
-<span class="normal">221</span>
-<span class="normal">222</span>
-<span class="normal">223</span>
-<span class="normal">224</span>
-<span class="normal">225</span>
-<span class="normal">226</span>
-<span class="normal">227</span>
-<span class="normal">228</span>
-<span class="normal">229</span>
-<span class="normal">230</span>
-<span class="normal">231</span>
-<span class="normal">232</span>
-<span class="normal">233</span>
-<span class="normal">234</span>
-<span class="normal">235</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<span class="normal">204</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
-    <span class="n">matlab_fct</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
-    <span class="n">input_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">output_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">matlab_function_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">,</span>
+    <span class="n">input_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">output_names</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">add_subfold_path</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">search_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">root_search_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
     <span class="n">matlab_engine_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;matlab&quot;</span><span class="p">,</span>
-    <span class="n">matlab_data_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">clean_cache_each_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">input_grammar_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">output_grammar_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">auto_detect_grammar_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">matlab_data_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">cleaning_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">check_opt_data</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">cache_type</span><span class="p">:</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">CacheType</span> <span class="o">=</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">CacheType</span><span class="o">.</span><span class="n">SIMPLE</span><span class="p">,</span>
-    <span class="n">grammar_type</span><span class="p">:</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">GrammarType</span> <span class="o">=</span> <span class="n">MDODiscipline</span><span class="o">.</span><span class="n">GrammarType</span><span class="o">.</span><span class="n">JSON</span><span class="p">,</span>
-    <span class="n">cache_file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">is_jac_returned_by_func</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Args:</span>
-<span class="sd">        matlab_fct: The path of the Matlab file or Name of the function.</span>
+<span class="sd">        matlab_function_path: The path of the Matlab file or Name of the function.</span>
 <span class="sd">        input_names: The input variables.</span>
 <span class="sd">        output_names: The output variables.</span>
 <span class="sd">        add_subfold_path: Whether to add all sub-folder to matlab engine path.</span>
-<span class="sd">        search_file: The root directory to launch the research of matlab file.</span>
-<span class="sd">        matlab_engine_name: The name of the singleton used for this discipline.</span>
-<span class="sd">        matlab_data_file: The .mat file or path containing default values of data.</span>
-<span class="sd">        name: The name of discipline.</span>
-<span class="sd">        clean_cache_each_n: Iteration interval at which matlab workspace is cleaned.</span>
-<span class="sd">        input_grammar_file: The file for input grammar description,</span>
-<span class="sd">            if None, name + &quot;_input.json&quot; is used.</span>
-<span class="sd">        output_grammar_file: The file for output grammar description.</span>
-<span class="sd">        auto_detect_grammar_files: If no input and output grammar files</span>
-<span class="sd">            are provided,</span>
-<span class="sd">            auto_detect_grammar_files uses a naming convention</span>
-<span class="sd">            to associate a grammar file to a discipline:</span>
-<span class="sd">            searches in the &quot;comp_dir&quot; directory containing the</span>
-<span class="sd">            discipline source file for files basenames</span>
-<span class="sd">            self.name _input.json and self.name _output.json.</span>
+<span class="sd">        root_search_path: The root directory to launch the research of matlab file.</span>
+<span class="sd">        matlab_engine_name: The name of the matlab engine used for this discipline.</span>
+<span class="sd">        matlab_data_path: The .mat path containing the default values of data.</span>
+<span class="sd">        cleaning_interval: The iteration interval at which matlab workspace is</span>
+<span class="sd">            cleaned.</span>
 <span class="sd">        check_opt_data: Whether to check input and output data of</span>
 <span class="sd">            discipline.</span>
-<span class="sd">        cache_type: The type of cache.</span>
-<span class="sd">        grammar_type: The type of the input and output grammars.</span>
-<span class="sd">        cache_file_path: The file to store the data,</span>
-<span class="sd">            mandatory when HDF caching is used.</span>
-<span class="sd">        is_jac_returned_by_func: If True, the jacobian matrices should be returned</span>
-<span class="sd">            of matlab function with standard outputs.</span>
-<span class="sd">            Default is False.</span>
-<span class="sd">            If True, the conventional name &#39;jac_dout_din&#39; is used as jacobian</span>
+<span class="sd">        is_jac_returned_by_func: Wether the jacobian matrices should be returned</span>
+<span class="sd">            of matlab function with standard outputs,</span>
+<span class="sd">            the conventional name &#39;jac_dout_din&#39; is used as jacobian</span>
 <span class="sd">            term of any output &#39;out&#39; with respect to input &#39;in&#39;.</span>
 <span class="sd">    &quot;&quot;&quot;</span>  <span class="c1"># noqa: D205, D212, D415</span>
-    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-        <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">input_grammar_file</span><span class="o">=</span><span class="n">input_grammar_file</span><span class="p">,</span>
-        <span class="n">output_grammar_file</span><span class="o">=</span><span class="n">output_grammar_file</span><span class="p">,</span>
-        <span class="n">auto_detect_grammar_files</span><span class="o">=</span><span class="n">auto_detect_grammar_files</span><span class="p">,</span>
-        <span class="n">cache_type</span><span class="o">=</span><span class="n">cache_type</span><span class="p">,</span>
-        <span class="n">grammar_type</span><span class="o">=</span><span class="n">grammar_type</span><span class="p">,</span>
-        <span class="n">cache_file_path</span><span class="o">=</span><span class="n">cache_file_path</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
     <span class="c1"># Force multiprocessing the spwan method</span>
     <span class="n">CallableParallelExecution</span><span class="o">.</span><span class="n">MULTI_PROCESSING_START_METHOD</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">CallableParallelExecution</span><span class="o">.</span><span class="n">MultiProcessingStartMethod</span><span class="o">.</span><span class="n">SPAWN</span>
     <span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__fct_name</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="n">matlab_fct</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">matlab_fct</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">input_names</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">output_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">matlab_function_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">matlab_function_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">input_names</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">output_names</span><span class="p">:</span>
         <span class="n">parser</span> <span class="o">=</span> <span class="n">MatlabParser</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">search_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_file</span><span class="p">(</span><span class="n">matlab_fct</span><span class="p">,</span> <span class="n">search_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root_search_path</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__search_file</span><span class="p">(</span><span class="n">matlab_function_path</span><span class="p">,</span> <span class="n">root_search_path</span><span class="p">)</span>
             <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">matlab_data_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">matlab_data_file</span><span class="p">)):</span>  <span class="c1"># noqa: PTH110</span>
-                <span class="n">matlab_data_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_file</span><span class="p">(</span>
-                    <span class="nb">str</span><span class="p">(</span><span class="n">matlab_data_file</span><span class="p">),</span> <span class="n">search_file</span><span class="p">,</span> <span class="s2">&quot;.mat&quot;</span>
+            <span class="k">if</span> <span class="n">matlab_data_path</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">matlab_data_path</span><span class="p">)):</span>  <span class="c1"># noqa: PTH110</span>
+                <span class="n">matlab_data_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__search_file</span><span class="p">(</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">matlab_data_path</span><span class="p">),</span> <span class="n">root_search_path</span><span class="p">,</span> <span class="s2">&quot;.mat&quot;</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">matlab_fct</span><span class="p">)</span>
+            <span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">matlab_function_path</span><span class="p">)</span>
 
         <span class="n">input_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">inputs</span>
         <span class="n">output_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">outputs</span>
         <span class="n">function_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">directory</span> <span class="o">/</span> <span class="n">parser</span><span class="o">.</span><span class="n">function_name</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.m&quot;</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">function_path</span> <span class="o">=</span> <span class="n">matlab_fct</span>
+        <span class="n">function_path</span> <span class="o">=</span> <span class="n">matlab_function_path</span>
 
-    <span class="k">if</span> <span class="n">input_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">input_names</span><span class="p">:</span>
         <span class="n">input_data</span> <span class="o">=</span> <span class="n">input_names</span>
-    <span class="k">if</span> <span class="n">output_names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">output_names</span><span class="p">:</span>
         <span class="n">output_data</span> <span class="o">=</span> <span class="n">output_names</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">__engine</span> <span class="o">=</span> <span class="n">get_matlab_engine</span><span class="p">(</span><span class="n">matlab_engine_name</span><span class="p">)</span>
@@ -1531,14 +1358,9 @@ term of any output 'out' with respect to input 'in'.</p>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">__check_function</span><span class="p">(</span><span class="n">function_path</span><span class="p">,</span> <span class="n">add_subfold_path</span><span class="p">)</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">__check_opt_data</span> <span class="o">=</span> <span class="n">check_opt_data</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">cleaning_interval</span> <span class="o">=</span> <span class="n">clean_cache_each_n</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">__init_default_data</span><span class="p">(</span>
-        <span class="n">matlab_data_file</span><span class="p">,</span>
-        <span class="n">input_grammar_file</span><span class="p">,</span>
-        <span class="n">output_grammar_file</span><span class="p">,</span>
-        <span class="n">auto_detect_grammar_files</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">data_processor</span> <span class="o">=</span> <span class="n">MatlabDataProcessor</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cleaning_interval</span> <span class="o">=</span> <span class="n">cleaning_interval</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__init_default_data</span><span class="p">(</span><span class="n">matlab_data_path</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">data_processor</span> <span class="o">=</span> <span class="n">MatlabDataProcessor</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
                   </details>
 
@@ -1551,30 +1373,6 @@ term of any output 'out' with respect to input 'in'.</p>
 
 
 <h5 id="gemseo_matlab.matlab_discipline.MatlabDiscipline-attributes">Attributes<a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline-attributes" class="headerlink" title="Permanent link">&para;</a></h5>
-
-<div class="doc doc-object doc-attribute">
-
-
-
-<h6 id="gemseo_matlab.matlab_discipline.MatlabDiscipline.cleaning_interval" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-attribute"></code>            <span class="doc doc-object-name doc-attribute-name">cleaning_interval</span>
-
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-property"><code>property</code></small>
-      <small class="doc doc-label doc-label-writable"><code>writable</code></small>
-  </span>
-
-<a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.cleaning_interval" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="n">cleaning_interval</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#int">int</a></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Get and/or set the flushing interval for matlab disciplines.</p>
-    </div>
-
-</div>
 
 <div class="doc doc-object doc-attribute">
 
@@ -1645,7 +1443,7 @@ construction.</p>
 <p><span class="doc-section-title">Parameters:</span></p>
     <ul>
         <li class="doc-section-item field-body">
-          <b><code>file_path</code></b>
+            <b><code>file_path</code></b>
               (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a class="autorefs autorefs-external" title="pathlib.Path" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></code>)
           –
           <div class="doc-md-description">
@@ -1656,215 +1454,31 @@ construction.</p>
 
             <details class="quote">
               <summary>Source code in <code>src/gemseo_matlab/matlab_discipline.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">677</span>
-<span class="normal">678</span>
-<span class="normal">679</span>
-<span class="normal">680</span>
-<span class="normal">681</span>
-<span class="normal">682</span>
-<span class="normal">683</span>
-<span class="normal">684</span>
-<span class="normal">685</span>
-<span class="normal">686</span>
-<span class="normal">687</span>
-<span class="normal">688</span>
-<span class="normal">689</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_data_to_matlab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span>
+<span class="normal">636</span>
+<span class="normal">637</span>
+<span class="normal">638</span>
+<span class="normal">639</span>
+<span class="normal">640</span>
+<span class="normal">641</span>
+<span class="normal">642</span>
+<span class="normal">643</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">save_data_to_matlab</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Save local data to matlab .mat format.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        file_path: The path where to save the file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
-    <span class="n">save_matlab_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">local_data</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">save_matlab_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
     <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
         <span class="sa">f</span><span class="s2">&quot;Local data of discipline </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> exported to &quot;</span>
         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">.mat successfully.&quot;</span>
     <span class="p">)</span>
     <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
-            </details>
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h6 id="gemseo_matlab.matlab_discipline.MatlabDiscipline.search_file" class="doc doc-heading">
-<code class="doc-symbol doc-symbol-heading doc-symbol-method"></code>            <span class="doc doc-object-name doc-function-name">search_file</span>
-
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
-  </span>
-
-<a href="#gemseo_matlab.matlab_discipline.MatlabDiscipline.search_file" class="headerlink" title="Permanent link">&para;</a></h6>
-<div class="doc-signature highlight"><pre><span></span><code><span class="nf">search_file</span><span class="p">(</span>
-    <span class="n">file_name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n">root_dir</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span><span class="p">,</span> <span class="n">extension</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;.m&quot;</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></span>
-</code></pre></div>
-
-    <div class="doc doc-contents ">
-
-        <p>Locate recursively a file in the given root directory.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-          <b><code>file_name</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
-          –
-          <div class="doc-md-description">
-            <p>The name of the file to be located.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>root_dir</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
-          –
-          <div class="doc-md-description">
-            <p>The root directory to launch the research.</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-          <b><code>extension</code></b>
-              (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>, default:
-                  <code>&#39;.m&#39;</code>
-)
-          –
-          <div class="doc-md-description">
-            <p>The extension of the file in case not given by user.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Returns:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>
-          –
-          <div class="doc-md-description">
-            <p>The path of the given file.</p>
-          </div>
-        </li>
-    </ul>
-
-
-<p><span class="doc-section-title">Raises:</span></p>
-    <ul>
-        <li class="doc-section-item field-body">
-              <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/exceptions.html#IOError">IOError</a></code>
-            –
-          <div class="doc-md-description">
-            <ul>
-<li>If two files are found in same directory;</li>
-<li>If no file is found.</li>
-</ul>
-          </div>
-        </li>
-    </ul>
-
-            <details class="quote">
-              <summary>Source code in <code>src/gemseo_matlab/matlab_discipline.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
-<span class="normal">307</span>
-<span class="normal">308</span>
-<span class="normal">309</span>
-<span class="normal">310</span>
-<span class="normal">311</span>
-<span class="normal">312</span>
-<span class="normal">313</span>
-<span class="normal">314</span>
-<span class="normal">315</span>
-<span class="normal">316</span>
-<span class="normal">317</span>
-<span class="normal">318</span>
-<span class="normal">319</span>
-<span class="normal">320</span>
-<span class="normal">321</span>
-<span class="normal">322</span>
-<span class="normal">323</span>
-<span class="normal">324</span>
-<span class="normal">325</span>
-<span class="normal">326</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@staticmethod</span>
-<span class="k">def</span> <span class="nf">search_file</span><span class="p">(</span>
-    <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">extension</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.m&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate recursively a file in the given root directory.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        file_name: The name of the file to be located.</span>
-<span class="sd">        root_dir: The root directory to launch the research.</span>
-<span class="sd">        extension: The extension of the file in case not given by user.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The path of the given file.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        IOError:</span>
-<span class="sd">            * If two files are found in same directory;</span>
-<span class="sd">            * If no file is found.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">found_file</span> <span class="o">=</span> <span class="kc">False</span>
-    <span class="n">re_matfile</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\S+\.\S*&quot;</span><span class="p">)</span>
-    <span class="n">grps</span> <span class="o">=</span> <span class="n">re_matfile</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">grps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">file_name</span> <span class="o">+=</span> <span class="n">extension</span>
-
-    <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">subdir</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)):</span>
-        <span class="k">for</span> <span class="n">file_loc</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">file_loc</span> <span class="o">==</span> <span class="n">file_name</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">found_file</span><span class="p">:</span>
-                    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
-                        <span class="sa">f</span><span class="s2">&quot;At least two files </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2"> &quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;were in directory </span><span class="si">{</span><span class="n">root_dir</span><span class="si">}</span><span class="s2">&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> File one: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">;&quot;</span>
-                        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> File two: </span><span class="si">{</span><span class="n">join</span><span class="p">(</span><span class="n">subdir</span><span class="p">,</span><span class="w"> </span><span class="n">file_loc</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>  <span class="c1"># noqa: PTH118</span>
-                    <span class="p">)</span>
-                    <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-                <span class="n">found_file</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="n">file_path</span> <span class="o">=</span> <span class="n">join</span><span class="p">(</span><span class="n">subdir</span><span class="p">,</span> <span class="n">file_loc</span><span class="p">)</span>  <span class="c1"># noqa: PTH118</span>
-                <span class="n">dir_name</span> <span class="o">=</span> <span class="n">subdir</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">found_file</span><span class="p">:</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No file: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">, found in directory: </span><span class="si">{</span><span class="n">root_dir</span><span class="si">}</span><span class="s2">.&quot;</span>
-        <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-
-    <span class="n">LOGGER</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;File: </span><span class="si">%s</span><span class="s2"> found in directory: </span><span class="si">%s</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">dir_name</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">file_path</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
@@ -1933,10 +1547,10 @@ construction.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "navigation.instant", "navigation.indexes"], "search": "../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
         <script src="../../../assets/_markdown_exec_pyodide.js"></script>
       

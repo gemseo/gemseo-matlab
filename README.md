@@ -48,6 +48,7 @@ Install the latest stable version with `pip install gemseo-matlab`.
 Install the development version with
 `pip install gemseo-matlab@git+https://gitlab.com/gemseo/dev/gemseo-matlab.git@develop`.
 
+
 See [pip](https://pip.pypa.io/en/stable/getting-started/) for more information.
 
 ## Development

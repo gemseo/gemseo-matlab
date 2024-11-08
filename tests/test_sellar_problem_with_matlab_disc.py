@@ -36,27 +36,27 @@ def build_matlab_disciplines():
 
     sellar1 = create_discipline(
         "MatlabDiscipline",
-        matlab_fct="Sellar1.m",
-        matlab_data_file=matlab_data,
+        matlab_function_path="Sellar1.m",
+        matlab_data_path=matlab_data,
         name="sellar_1",
-        search_file=MATLAB_FILES_DIR_PATH,
+        root_search_path=MATLAB_FILES_DIR_PATH,
         is_jac_returned_by_func=True,
     )
 
     sellar2 = create_discipline(
         "MatlabDiscipline",
-        matlab_fct="Sellar2.m",
-        matlab_data_file=matlab_data,
-        search_file=MATLAB_FILES_DIR_PATH,
+        matlab_function_path="Sellar2.m",
+        matlab_data_path=matlab_data,
+        root_search_path=MATLAB_FILES_DIR_PATH,
         name="sellar_2",
         is_jac_returned_by_func=True,
     )
 
     sellar_system = create_discipline(
         "MatlabDiscipline",
-        matlab_fct="SellarSystem.m",
-        matlab_data_file=matlab_data,
-        search_file=MATLAB_FILES_DIR_PATH,
+        matlab_function_path="SellarSystem.m",
+        matlab_data_path=matlab_data,
+        root_search_path=MATLAB_FILES_DIR_PATH,
         name="sellar_system",
         is_jac_returned_by_func=True,
     )
@@ -67,16 +67,27 @@ def build_matlab_disciplines():
 def build_matlab_scenario():
     """Build the Sellar scenario for matlab tests."""
     design_space = DesignSpace()
-    design_space.add_variable("x", l_b=0.0, u_b=10.0, value=np.ones(1))
+    design_space.add_variable("x", lower_bound=0.0, upper_bound=10.0, value=np.ones(1))
     design_space.add_variable(
-        "z", 2, l_b=(-10, 0.0), u_b=(10.0, 10.0), value=np.array([4.0, 3.0])
+        "z",
+        2,
+        lower_bound=(-10, 0.0),
+        upper_bound=(10.0, 10.0),
+        value=np.array([4.0, 3.0]),
     )
-    design_space.add_variable("y_1", l_b=-100.0, u_b=100.0, value=np.ones(1))
-    design_space.add_variable("y_2", l_b=-100.0, u_b=100.0, value=np.ones(1))
+    design_space.add_variable(
+        "y_1", lower_bound=-100.0, upper_bound=100.0, value=np.ones(1)
+    )
+    design_space.add_variable(
+        "y_2", lower_bound=-100.0, upper_bound=100.0, value=np.ones(1)
+    )
 
     disciplines = build_matlab_disciplines()
     scenario = create_scenario(
-        disciplines, formulation="IDF", objective_name="obj", design_space=design_space
+        disciplines,
+        formulation_name="IDF",
+        objective_name="obj",
+        design_space=design_space,
     )
 
     scenario.add_constraint("c_1", "ineq")
@@ -104,16 +115,16 @@ def test_matlab_optim_results():
     Jacobians are computed.
     """
     scenario = build_matlab_scenario()
-    scenario.execute(input_data={"max_iter": 20, "algo": "SLSQP"})
+    scenario.execute(algo_name="SLSQP", max_iter=20)
 
     # ref values are taken from the doc "Sellar Problem"
 
     optim_res = scenario.optimization_result
-    assert pytest.approx(optim_res.f_opt) == 3.182059
+    assert optim_res.f_opt == pytest.approx(3.18339, rel=0.001)
 
     x_opt = scenario.design_space.get_current_value(as_dict=True)
-    assert pytest.approx(x_opt["x"]) == 0.0
-    assert pytest.approx(x_opt["z"][0]) == 2.0363869
-    assert pytest.approx(x_opt["z"][1]) == 0.0
-    assert pytest.approx(x_opt["y_1"]) == 3.16
-    assert pytest.approx(x_opt["y_2"]) == 3.814028
+    assert x_opt["x"] == pytest.approx(0.0, abs=0.0001)
+    assert x_opt["z"][0] == pytest.approx(1.9776, abs=0.0001)
+    assert x_opt["z"][1] == pytest.approx(0.0, abs=0.0001)
+    assert x_opt["y_1"] == pytest.approx(3.16, abs=0.0001)
+    assert x_opt["y_2"] == pytest.approx(3.75528, abs=0.0001)

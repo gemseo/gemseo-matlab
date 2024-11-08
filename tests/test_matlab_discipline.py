@@ -15,7 +15,6 @@
 from __future__ import annotations
 
 import pickle
-from pathlib import Path
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
@@ -90,7 +89,7 @@ def test_inputs_and_outputs_size_known_init():
     """Test the size of input and output variables are known when initializing with
     matlab data."""
     mat2 = MatlabDiscipline(
-        MATLAB_SIMPLE_FUNC_MULTIDIM, matlab_data_file=FCT_MULTIDIM_DATASET
+        MATLAB_SIMPLE_FUNC_MULTIDIM, matlab_data_path=FCT_MULTIDIM_DATASET
     )
 
     assert mat2._MatlabDiscipline__inputs_size["x"] == 2
@@ -158,33 +157,33 @@ def test_jac_output_indices():
 def test_init_default_data():
     """Test that data are correctly initialized."""
     mat = MatlabDiscipline(
-        matlab_fct=MATLAB_COMPLEX_FUNC,
-        matlab_data_file=MATLAB_FILES_DIR_PATH / "dummy_complex_fct_database.mat",
+        MATLAB_COMPLEX_FUNC,
+        matlab_data_path=MATLAB_FILES_DIR_PATH / "dummy_complex_fct_database.mat",
     )
-    assert array(mat.default_inputs["a"]) == pytest.approx(
+    assert array(mat.default_input_data["a"]) == pytest.approx(
         array([[[1, 1], [1, 1]], [[1, 1], [1, 1]]])
     )
-    assert array(mat.default_inputs["b"]) == pytest.approx(
+    assert array(mat.default_input_data["b"]) == pytest.approx(
         array([[[1, 1], [1, 1]], [[1, 1], [1, 1]]])
     )
-    assert mat.default_inputs["c"] == pytest.approx(2)
-    assert array(mat.default_inputs["d"]) == pytest.approx(array([1, 2]))
-    assert mat.default_inputs["e"] == pytest.approx(1)
-    assert mat.default_inputs["f"] == pytest.approx(1)
+    assert mat.default_input_data["c"] == pytest.approx(2)
+    assert array(mat.default_input_data["d"]) == pytest.approx(array([1, 2]))
+    assert mat.default_input_data["e"] == pytest.approx(1)
+    assert mat.default_input_data["f"] == pytest.approx(1)
 
 
 def test_search_file_error_not_found():
     """Test that an error is raised if file is not found."""
     with pytest.raises(
-        IOError, match="No file: dummy_test.m, " "found in directory: non_existing."
+        IOError, match="No file: dummy_test.m, found in directory: non_existing."
     ):
-        MatlabDiscipline("dummy_test.m", search_file="non_existing")
+        MatlabDiscipline("dummy_test.m", root_search_path="non_existing")
 
 
 def test_search_file_error_two_files_found():
     """Test that an error is raised if two files are found."""
     with pytest.raises(IOError) as excp:
-        MatlabDiscipline("dummy_test.m", search_file=MATLAB_FILES_DIR_PATH)
+        MatlabDiscipline("dummy_test.m", root_search_path=MATLAB_FILES_DIR_PATH)
     assert (
         str(excp.value)
         == "At least two files dummy_test.m were "
@@ -199,7 +198,9 @@ def test_search_file_error_two_files_found():
 
 def test_search_file():
     """Test that file is found."""
-    mat = MatlabDiscipline("dummy_test_multidim.m", search_file=MATLAB_FILES_DIR_PATH)
+    mat = MatlabDiscipline(
+        "dummy_test_multidim.m", root_search_path=MATLAB_FILES_DIR_PATH
+    )
     assert mat._MatlabDiscipline__inputs == ["x", "y"]
 
 
@@ -220,14 +221,14 @@ def test_run_builtin():
     values."""
     mat = MatlabDiscipline("cos", input_names=["x"], output_names=["out"])
     mat.execute({"x": array([0])})
-    assert mat.local_data["out"] == pytest.approx(1)
+    assert mat.io.data["out"] == pytest.approx(1)
 
 
 def test_run_user():
     """Test that user matlab function is correctly called and returned right values."""
     mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
     mat.execute({"x": array([2])})
-    assert mat.local_data["y"] == pytest.approx(4)
+    assert mat.io.data["y"] == pytest.approx(4)
 
 
 def test_run_user_new_names():
@@ -237,29 +238,29 @@ def test_run_user_new_names():
         MATLAB_SIMPLE_FUNC, input_names=["in1"], output_names=["out"]
     )
     mat.execute({"in1": array([3])})
-    assert mat.local_data["out"] == pytest.approx(9)
+    assert mat.io.data["out"] == pytest.approx(9)
 
 
 def test_run_user_multidim():
     """Test that user matlab function is correctly called and returned right values."""
     mat = MatlabDiscipline(
-        MATLAB_SIMPLE_FUNC_MULTIDIM, matlab_data_file=FCT_MULTIDIM_DATASET
+        MATLAB_SIMPLE_FUNC_MULTIDIM, matlab_data_path=FCT_MULTIDIM_DATASET
     )
     mat.execute({"x": array([1, 2]), "y": array([3])})
-    assert array(mat.local_data["z1"]) == pytest.approx(array([1, 5]))
-    assert mat.local_data["z2"] == pytest.approx(11)
+    assert array(mat.io.data["z1"]) == pytest.approx(array([1, 5]))
+    assert mat.io.data["z2"] == pytest.approx(11)
 
 
 def test_run_user_multidim_no_extension_data():
     """Test that an input matlab data file can be prescribed without extension."""
     mat = MatlabDiscipline(
         "dummy_test_multidim.m",
-        matlab_data_file="dummy_file_multidim_fct",
-        search_file=MATLAB_FILES_DIR_PATH,
+        matlab_data_path="dummy_file_multidim_fct",
+        root_search_path=MATLAB_FILES_DIR_PATH,
     )
     mat.execute({"x": array([1, 2]), "y": array([3])})
-    assert array(mat.local_data["z1"]) == pytest.approx(array([1, 5]))
-    assert mat.local_data["z2"] == pytest.approx(11)
+    assert array(mat.io.data["z1"]) == pytest.approx(array([1, 5]))
+    assert mat.io.data["z2"] == pytest.approx(11)
 
 
 def test_run_user_multidim_jac():
@@ -267,7 +268,7 @@ def test_run_user_multidim_jac():
     jacobian is defined."""
     mat = MatlabDiscipline(
         MATLAB_SIMPLE_FUNC_MULTIDIM_JAC,
-        matlab_data_file=FCT_MULTIDIM_DATASET,
+        matlab_data_path=FCT_MULTIDIM_DATASET,
         is_jac_returned_by_func=True,
     )
     mat.execute({"x": array([1, 2]), "y": array([3])})
@@ -275,7 +276,7 @@ def test_run_user_multidim_jac():
     assert array(mat.jac["z1"]["y"]) == pytest.approx(array([[0], [54]]))
     assert array(mat.jac["z2"]["x"]) == pytest.approx(array([[4, 0]]))
     assert array(mat.jac["z2"]["y"]) == pytest.approx(array([[6]]))
-    assert len(mat.local_data) == 4
+    assert len(mat.io.data) == 4
 
 
 def test_run_user_multidim_jac_wrong_size():
@@ -283,7 +284,7 @@ def test_run_user_multidim_jac_wrong_size():
     jacobian is defined."""
     mat = MatlabDiscipline(
         MATLAB_FILES_DIR_PATH / "dummy_test_multidim_jac_wrong_size.m",
-        matlab_data_file=FCT_MULTIDIM_DATASET,
+        matlab_data_path=FCT_MULTIDIM_DATASET,
         is_jac_returned_by_func=True,
     )
     with pytest.raises(ValueError) as excp:
@@ -293,15 +294,6 @@ def test_run_user_multidim_jac_wrong_size():
         "Jacobian term 'jac_dz1_dx' has the wrong size "
         "(1, 4) whereas it should be (2, 2)."
     )
-
-
-def test_check_cleaning_interval():
-    """Test check that interval cleaning raise an error if not an integer."""
-    with pytest.raises(
-        ValueError,
-        match="The parameter 'cleaning_interval' argument must be an integer.",
-    ):
-        MatlabDiscipline(MATLAB_SIMPLE_FUNC, clean_cache_each_n=2.3)
 
 
 def test_save_data():
@@ -333,20 +325,6 @@ def test_serialize(tmp_path):
     assert out["y"] == pytest.approx(4)
 
 
-def test_with_given_grammar_file():
-    """Test the discipline instantiation when grammar files are given."""
-    mat = MatlabDiscipline(
-        MATLAB_SIMPLE_FUNC,
-        input_grammar_file=str(
-            Path(__file__).parent / "matlab_files/input_dummy_grammar.json"
-        ),
-        output_grammar_file=str(
-            Path(__file__).parent / "matlab_files/output_dummy_grammar.json"
-        ),
-    )
-    assert isinstance(mat, MatlabDiscipline)
-
-
 def test_parallel():
     """Test multiprocessing with matlab discipline.
 
@@ -355,17 +333,13 @@ def test_parallel():
     mat = MatlabDiscipline(MATLAB_PARALLEL_FUNC)
 
     ds = DesignSpace()
-    ds.add_variable("x", l_b=-10, u_b=10)
+    ds.add_variable("x", lower_bound=-10, upper_bound=10)
 
-    scenario = DOEScenario([mat], "DisciplinaryOpt", "y", ds)
+    scenario = DOEScenario([mat], "y", ds, formulation_name="DisciplinaryOpt")
     scenario.add_observable("pid")
 
     n_samples = 10
-    scenario.execute({
-        "algo": "DiagonalDOE",
-        "n_samples": n_samples,
-        "algo_options": {"n_processes": 2},
-    })
+    scenario.execute(algo_name="DiagonalDOE", n_samples=n_samples, n_processes=2)
     outputs, _ = scenario.formulation.optimization_problem.database.get_history(
         function_names=["pid", "y"]
     )

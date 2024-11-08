@@ -44,7 +44,7 @@ from typing import Final
 
 import matlab
 import scipy.io
-from gemseo.core.data_processor import DataProcessor
+from gemseo.core.discipline.data_processor import DataProcessor
 from numpy import array
 from numpy import iscomplexobj
 from numpy import ndarray

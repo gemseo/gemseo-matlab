@@ -26,6 +26,16 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# Development
+
+##Changed
+
+- The following arguments of `MatlabDiscipline` constructor were changed:
+  - `matlab_fct` to `matlab_function_path`
+  - `search_file` to `root_search_path`
+  - `matlab_data_file` to `matlab_data_path`
+  - `clean_cache_each_n` to `cleaning_interval`
+
 # Version 1.0.3 (December 2023)
 
 ## Added

@@ -265,8 +265,7 @@ class MatlabEngine:
         if path not in self.__paths:
             if not self.exist(path):
                 msg = (
-                    f"The given path {path} is not found "
-                    f"and cannot be added to matlab."
+                    f"The given path {path} is not found and cannot be added to matlab."
                 )
                 raise ValueError(msg)
             self.__paths.append(path)

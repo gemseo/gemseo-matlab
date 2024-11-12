@@ -44,7 +44,7 @@ from typing import Final
 
 import matlab
 import scipy.io
-from gemseo.core.data_processor import DataProcessor
+from gemseo.core.discipline.data_processor import DataProcessor
 from numpy import array
 from numpy import iscomplexobj
 from numpy import ndarray
@@ -173,7 +173,8 @@ def save_matlab_file(
         if isinstance(data_value, matlab.double):
             data_copy[data_name] = double2array(data_value)
         elif not isinstance(data_value, ndarray):
-            raise TypeError("The data must be composed of NumPy arrays only.")
+            msg = "The data must be composed of NumPy arrays only."
+            raise TypeError(msg)
     scipy.io.savemat(str(file_path), data_copy, **options)
 
 

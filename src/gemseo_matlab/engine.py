@@ -52,14 +52,17 @@ import logging
 import os
 from functools import lru_cache
 from pathlib import Path
+from typing import TYPE_CHECKING
 from typing import Any
 from typing import Final
 
 import matlab.engine
-from numpy import ndarray  # noqa F401
 from strenum import StrEnum
 
 from gemseo_matlab.matlab_data_processor import double2array
+
+if TYPE_CHECKING:
+    from numpy import ndarray
 
 LOGGER = logging.getLogger(__name__)
 
@@ -261,10 +264,10 @@ class MatlabEngine:
         path = str(path)
         if path not in self.__paths:
             if not self.exist(path):
-                raise ValueError(
-                    f"The given path {path} is not found "
-                    f"and cannot be added to matlab."
+                msg = (
+                    f"The given path {path} is not found and cannot be added to matlab."
                 )
+                raise ValueError(msg)
             self.__paths.append(path)
             self.__matlab.addpath(path)
 
@@ -414,10 +417,11 @@ class MatlabEngine:
         try:
             return double2array(self.__matlab.workspace[item])
         except matlab.engine.MatlabExecutionError:
-            raise ValueError(
+            msg = (
                 f"The variable {item} does not exist in the "
                 f"current {self.__engine_name} workspace."
-            ) from None
+            )
+            raise ValueError(msg) from None
 
     def __del__(self) -> None:
         self.close_session()

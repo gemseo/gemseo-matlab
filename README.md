@@ -7,35 +7,49 @@ http://creativecommons.org/licenses/by-sa/4.0/ or send a letter to Creative
 Commons, PO Box 1866, Mountain View, CA 94042, USA.
 -->
 
+# gemseo-matlab
+
+[![PyPI - License](https://img.shields.io/pypi/l/gemseo-matlab)](https://www.gnu.org/licenses/lgpl-3.0.en.html)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/gemseo-matlab)](https://pypi.org/project/gemseo-matlab/)
+[![PyPI](https://img.shields.io/pypi/v/gemseo-matlab)](https://pypi.org/project/gemseo-matlab/)
+[![Codecov branch](https://img.shields.io/codecov/c/gitlab/gemseo:dev/gemseo-matlab/develop)](https://app.codecov.io/gl/gemseo:dev/gemseo-matlab)
+
+## Overview
+
 MATLAB wrapper for GEMSEO
-
-# Documentation
-
-Currently, the documentation of this plugin is available via the
-documentation of GEMSEO.
 
 ## Installation
 
-Executing a MATLAB discipline requires that a MATLAB engine as well as
-its Python API are installed. The MATLAB Python API is not defined as a
-dependency of this package, because until MATLAB release R2020b there
-was no package available in PyPI. It shall be installed in the same
-environment as the one in which this plugin is installed, please refer
-to the MATLAB documentation for further information.
+!!! warning
 
-Here are the current versions of the MATLAB Python packages per MATLAB
-versions:
+    This plugin requires that a MATLAB engine as well as
+    its Python API are installed. The MATLAB Python API is not defined as a
+    dependency of this package, because until MATLAB release R2020b there
+    was no package available in PyPI. It shall be installed in the same
+    environment as the one in which this plugin is installed, please refer
+    to the MATLAB documentation for further information.
 
-| Python | Matlab | matlabengine |
-|:------:|:------:|:------------:|
-| 3.9 | r2021b | 9.11.19 |
-| 3.9 | r2022a | 9.12.17 |
-| 3.9, 3.10 | r2022b | 9.13.9 |
-| 3.9, 3.10 | r2023a | 9.14.3 |
+    Here are the current versions of the MATLAB Python packages per MATLAB
+    versions:
 
-To make sure that MATLAB works fine through the Python API, start a
-Python interpreter and check that there is no error when executing
-`import matlab`.
+    | Python | Matlab | matlabengine |
+    |:------:|:------:|:------------:|
+    | 3.9 | r2021b | 9.11.23 |
+    | 3.9 | r2022a | 9.12.21 |
+    | 3.9, 3.10 | r2022b | 9.13.11 |
+    | 3.9, 3.10 | r2023a | 9.14.7 |
+
+    To make sure that MATLAB works fine through the Python API, start a
+    Python interpreter and check that there is no error when executing
+    `import matlab`.
+
+Install the latest stable version with `pip install gemseo-matlab`.
+
+Install the development version with
+`pip install gemseo-matlab@git+https://gitlab.com/gemseo/dev/gemseo-matlab.git@develop`.
+
+
+See [pip](https://pip.pypa.io/en/stable/getting-started/) for more information.
 
 ## Development
 
@@ -57,28 +71,15 @@ adapt with the proper version of matlab:
 podman build Dockerfile -t gemseo-matlab:r2020b --build-arg=MATLAB_VERSION=r2020b
 ```
 
-# Bugs/Questions
+## Bugs and questions
 
-Please use the gitlab issue tracker at
-<https://gitlab.com/gemseo/dev/gemseo-matlab/-/issues>
+Please use the [gitlab issue tracker](https://gitlab.com/gemseo/dev/gemseo-matlab/-/issues)
 to submit bugs or questions.
 
-# License
+## Contributing
 
-The **gemseo-matlab** source code is distributed under the GNU LGPL v3.0 license.
-A copy of it can be found in the LICENSE.txt file.
-The GNU LGPL v3.0 license is an exception to the GNU GPL v3.0 license.
-A copy of the GNU GPL v3.0 license can be found in the LICENSES folder.
+See the [contributing section of GEMSEO](https://gemseo.readthedocs.io/en/stable/software/developing.html#dev).
 
-The **gemseo-matlab** examples are distributed under the BSD 0-Clause, a permissive
-license that allows to copy paste the code of examples without preserving the
-copyright mentions.
-
-The **gemseo-matlab** documentation is distributed under the CC BY-SA 4.0 license.
-
-The **gemseo-matlab** product depends on other software which have various licenses.
-The list of dependencies with their licenses is given in the CREDITS.md file.
-
-# Contributors
+## Contributors
 
 - GEMSEO developers

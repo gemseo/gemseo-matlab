@@ -104,27 +104,28 @@ class MatlabParser:
         """
         file_path = Path(file_path)
         if not file_path.exists():
-            raise FileNotFoundError(
+            msg = (
                 "The function directory for Matlab "
                 f"sources {file_path} does not exists."
             )
+            raise FileNotFoundError(msg)
 
         file_path = str(file_path)
 
         re_encrypted_file_groups = self.RE_ENCRYPTED_FCT.search(file_path)
 
         if re_encrypted_file_groups is not None:
-            raise ValueError(
-                f"The given file {file_path} is encrypted and cannot be parsed."
-            )
+            msg = f"The given file {file_path} is encrypted and cannot be parsed."
+            raise ValueError(msg)
 
         re_file_groups = self.RE_FILE_FMT.search(file_path)
 
         if re_file_groups is None:
-            raise ValueError(
+            msg = (
                 f"The given file {file_path} should "
                 "either be a matlab function or script."
             )
+            raise ValueError(msg)
 
     def __parse_function_inputs_outputs(
         self,
@@ -150,14 +151,16 @@ class MatlabParser:
         re_func_groups = self.RE_FUNCTION.search(line)
 
         if re_func_groups is None:
-            raise NameError("Matlab function has no name.")
+            msg = "Matlab function has no name."
+            raise NameError(msg)
 
         fname = re_func_groups.group(0).strip()[1:-1].strip()
 
         if fname != function_name:
-            raise NameError(
+            msg = (
                 f"Function name {function_name} does not match with file name {fname}."
             )
+            raise NameError(msg)
 
         LOGGER.debug("Detected function: %s", fname)
         self.__fct_name = fname
@@ -165,7 +168,8 @@ class MatlabParser:
         re_output_groups = self.RE_OUTPUTS.search(line)
 
         if re_output_groups is None:
-            raise ValueError(f"Function {fname} has no output")
+            msg = f"Function {fname} has no output"
+            raise ValueError(msg)
 
         arg_str = re_output_groups.group(0).strip()
         arg_str = arg_str.replace("[", "").replace("]", "")
@@ -177,7 +181,8 @@ class MatlabParser:
 
         re_args_groups = self.RE_ARGS.search(line)
         if re_args_groups is None:
-            raise ValueError(f"Function {fname} has no argument.")
+            msg = f"Function {fname} has no argument."
+            raise ValueError(msg)
 
         arg_str = re_args_groups.group(0).strip()[1:-1].strip()
         args = arg_str.split(",")
@@ -208,4 +213,5 @@ class MatlabParser:
                     break
 
         if not is_parsed:
-            raise ValueError(f"The given file {path} is not a matlab function.")
+            msg = f"The given file {path} is not a matlab function."
+            raise ValueError(msg)

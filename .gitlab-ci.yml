@@ -1,7 +1,13 @@
 include:
-  - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/py311/plugin.yml"
+  - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/main/plugin.yml"
 
 test:
+  rules:
+    # We only have access to matlab internally,
+    # the tests are executed on the internal gitlab.
+    - if: $CI_SERVER_HOST == "gitlab.com"
+      when: never
+    - !reference [.test-base, rules]
   extends:
     - .test-base
   parallel:

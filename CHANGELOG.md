@@ -26,9 +26,13 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# Development
+## Version 2.0.0 (November 2024)
 
-##Changed
+### Added
+
+- Support GEMSEO v6.
+
+###Changed
 
 - The following arguments of `MatlabDiscipline` constructor were changed:
   - `matlab_fct` to `matlab_function_path`
@@ -36,25 +40,25 @@ and this project adheres to
   - `matlab_data_file` to `matlab_data_path`
   - `clean_cache_each_n` to `cleaning_interval`
 
-# Version 1.0.3 (December 2023)
+## Version 1.0.3 (December 2023)
 
-## Added
+### Added
 
 - Support for Python 3.11.
 
-## Removed
+### Removed
 
 - Support for Python 3.8.
 
-# Version 1.0.2 (December 2023)
+## Version 1.0.2 (December 2023)
 
-## Fixed
+### Fixed
 
 - Compatibility with GEMSEO version 5.2.
 
-# Version 1.0.1 (September 2023)
+## Version 1.0.1 (September 2023)
 
-## Fixed
+### Fixed
 
 - Memory leaks are fixed in the Matlab discipline,
 for matlabengine >= 9.12.
@@ -68,6 +72,6 @@ grammar files. Linked issue:
 - The Matlab discipline can now be serialized. Linked issue:
 <https://gitlab.com/gemseo/dev/gemseo/-/issues/674>
 
-# Version 1.0.0 (June 2023)
+## Version 1.0.0 (June 2023)
 
 First release.

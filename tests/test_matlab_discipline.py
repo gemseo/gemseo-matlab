@@ -224,9 +224,10 @@ def test_run_builtin():
     assert mat.io.data["out"] == pytest.approx(1)
 
 
-def test_run_user():
+@pytest.mark.parametrize("cleaning_interval", [0, 1])
+def test_run_user(cleaning_interval: int):
     """Test that user matlab function is correctly called and returned right values."""
-    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
+    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC, cleaning_interval=cleaning_interval)
     mat.execute({"x": array([2])})
     assert mat.io.data["y"] == pytest.approx(4)
 

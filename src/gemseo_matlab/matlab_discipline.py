@@ -535,12 +535,12 @@ class MatlabDiscipline(Discipline):
 
         if (
             self.cleaning_interval != 0
-            and self.execution_statistics.n_calls % self.cleaning_interval == 0
+            and self.execution_statistics.n_executions % self.cleaning_interval == 0
         ):
             self.__engine.execute_function("clear", "all", nargout=0)
             LOGGER.debug(
                 "MATLAB cache cleaned: Discipline called %s times",
-                self.execution_statistics.n_calls,
+                self.execution_statistics.n_executions,
             )
 
         out_names = self.__outputs

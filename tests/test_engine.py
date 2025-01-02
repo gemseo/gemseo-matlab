@@ -14,6 +14,7 @@
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import matlab
@@ -139,7 +140,9 @@ def test_get_variable_error(matlab_engine):
     matlab workspace."""
     with pytest.raises(
         ValueError,
-        match="The variable toto does not exist in the current matlab workspace.",
+        match=re.escape(
+            "The variable toto does not exist in the current matlab workspace."
+        ),
     ):
         matlab_engine.get_variable("toto")
 

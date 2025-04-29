@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import pickle
+import re
 
 import pytest
 from gemseo.algos.design_space import DesignSpace
@@ -118,11 +119,13 @@ def test_jac_output_names_error_missing_term():
     """Test that jacobians output raise an error if a term is missing."""
     with pytest.raises(
         ValueError,
-        match="The number of jacobian outputs "
-        "does not correspond to what it "
-        "should be. Make sure that all "
-        "outputs have a jacobian matrix "
-        "with respect to inputs.",
+        match=re.escape(
+            "The number of jacobian outputs "
+            "does not correspond to what it "
+            "should be. Make sure that all "
+            "outputs have a jacobian matrix "
+            "with respect to inputs."
+        ),
     ):
         MatlabDiscipline(
             MATLAB_FILES_DIR_PATH / "dummy_test_multidim_jac_wrong.m",
@@ -175,7 +178,8 @@ def test_init_default_data():
 def test_search_file_error_not_found():
     """Test that an error is raised if file is not found."""
     with pytest.raises(
-        IOError, match="No file: dummy_test.m, found in directory: non_existing."
+        IOError,
+        match=re.escape("No file: dummy_test.m, found in directory: non_existing."),
     ):
         MatlabDiscipline("dummy_test.m", root_search_path="non_existing")
 
@@ -224,9 +228,10 @@ def test_run_builtin():
     assert mat.io.data["out"] == pytest.approx(1)
 
 
-def test_run_user():
+@pytest.mark.parametrize("cleaning_interval", [0, 1])
+def test_run_user(cleaning_interval: int):
     """Test that user matlab function is correctly called and returned right values."""
-    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
+    mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC, cleaning_interval=cleaning_interval)
     mat.execute({"x": array([2])})
     assert mat.io.data["y"] == pytest.approx(4)
 

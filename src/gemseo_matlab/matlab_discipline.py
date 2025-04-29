@@ -511,7 +511,6 @@ class MatlabDiscipline(Discipline):
                 * If the execution of the matlab function fails.
                 * If the size of the jacobian output matrix is wrong.
         """
-        # import pudb;pudb.set_trace()
         list_of_values = [input_data.get(k) for k in self.__inputs if k in input_data]
 
         try:
@@ -535,49 +534,49 @@ class MatlabDiscipline(Discipline):
 
         if (
             self.cleaning_interval != 0
-            and self.execution_statistics.n_calls % self.cleaning_interval == 0
+            and self.execution_statistics.n_executions % self.cleaning_interval == 0
         ):
             self.__engine.execute_function("clear", "all", nargout=0)
             LOGGER.debug(
                 "MATLAB cache cleaned: Discipline called %s times",
-                self.execution_statistics.n_calls,
+                self.execution_statistics.n_executions,
             )
 
         out_names = self.__outputs
 
+        output_data = {}
         if len(out_names) == 1:
-            self.io.update_output_data({out_names[0]: double2array(out_vals)})
+            output_data[out_names[0]] = double2array(out_vals)
         else:
             for out_n, out_v in zip(out_names, out_vals):
-                self.io.update_output_data({out_n: double2array(out_v)})
+                output_data[out_n] = double2array(out_v)
 
         if not self.__is_size_known:
             for i, var in enumerate(self.__inputs):
                 self.__inputs_size[var] = len(list_of_values[i])
             for var in self.__outputs:
-                self.__outputs_size[var] = len(self.io.data[var])
+                self.__outputs_size[var] = len(output_data[var])
             self.__is_size_known = True
 
         if self.__is_jac_returned_by_func:
-            self.__store_jacobian(jac_vals)
+            self.__store_jacobian(jac_vals, output_data)
 
-    def __store_jacobian(self, jac_vals: list[float]) -> None:
+        return output_data
+
+    def __store_jacobian(
+        self, jac_vals: list[float], output_data: StrKeyMapping
+    ) -> None:
         """Store the jacobian.
 
         Args:
             jac_vals: The values of the jacobian.
+            output_data: The data computed by the matlab function.
         """
-        # Revert the data processing so that the data converters can work on data
-        # compliant the grammars.
-        processor = self.io.data_processor
-
-        if processor is not None:
-            self.io.data = processor.post_process_data(self.io.data)
+        # Those data will be processed by the data_processor and overwritten after _run,
+        # here they are necessary for Initializing the jacobian.
+        self.io.data.update(output_data)
 
         self._init_jacobian()
-
-        if processor is not None:
-            self.io.data = processor.pre_process_data(self.io.data)
 
         cpt = 0
         for out_name in self.__outputs:

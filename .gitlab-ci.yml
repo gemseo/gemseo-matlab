@@ -1,6 +1,10 @@
 include:
   - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/main/plugin.yml"
 
+variables:
+  # To reduce the licenses used.
+  PYTEST_NUM_PROCESSES: 1
+
 test:
   rules:
     # We only have access to matlab internally,
@@ -12,28 +16,42 @@ test:
     - .test-base
   parallel:
     matrix:
-      - TAG: docker
+      - TAG: saas-linux-small-amd64
         MATLAB_VERSION: r2021b
-        MATLAB_PIP_REQ_SPEC: matlabengine==9.11.19
+        MATLAB_PIP_REQ_SPEC: matlabengine~=9.11
         TOX_ENV_NAME:
           - py39-coverage
-      - TAG: docker
+      - TAG: saas-linux-small-amd64
         MATLAB_VERSION: r2022a
-        MATLAB_PIP_REQ_SPEC: matlabengine==9.12.17
+        MATLAB_PIP_REQ_SPEC: matlabengine~=9.12
         TOX_ENV_NAME:
           - py39-coverage
-      - TAG: docker
+      - TAG: saas-linux-small-amd64
         MATLAB_VERSION: r2022b
-        MATLAB_PIP_REQ_SPEC: matlabengine==9.13.9
+        MATLAB_PIP_REQ_SPEC: matlabengine~=9.13
         TOX_ENV_NAME:
           - py39-coverage
           - py310-coverage
-      - TAG: docker
+      - TAG: saas-linux-small-amd64
         MATLAB_VERSION: r2023a
-        MATLAB_PIP_REQ_SPEC: matlabengine==9.14.3
+        MATLAB_PIP_REQ_SPEC: matlabengine~=9.14
         TOX_ENV_NAME:
           - py39-coverage
           - py310-coverage
+      - TAG: saas-linux-small-amd64
+        MATLAB_VERSION: r2023b
+        MATLAB_PIP_REQ_SPEC: matlabengine~=23.2
+        TOX_ENV_NAME:
+          - py39-coverage
+          - py310-coverage
+          - py311-coverage
+      - TAG: saas-linux-small-amd64
+        MATLAB_VERSION: r2024a
+        MATLAB_PIP_REQ_SPEC: matlabengine~=24.1
+        TOX_ENV_NAME:
+          - py39-coverage
+          - py310-coverage
+          - py311-coverage
 
       # This version is not yet available on windows.
       # - TAG: windows-server-2019
@@ -44,7 +62,7 @@ test:
       #     - py39-coverage
       - TAG: windows-server-2019
         MATLAB_VERSION: r2022a
-        MATLAB_PIP_REQ_SPEC: matlabengine==9.12.17
+        MATLAB_PIP_REQ_SPEC: matlabengine~=9.12
         TOX_ENV_NAME:
           - py39-coverage
   tags:

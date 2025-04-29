@@ -5,6 +5,9 @@ FROM mathworks/matlab:$MATLAB_VERSION
 # Use root for installing in the system.
 USER root
 
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Paris
+
 RUN  apt update \
   && apt install software-properties-common --yes \
   && add-apt-repository ppa:deadsnakes/ppa \

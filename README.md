@@ -57,7 +57,7 @@ version of the MATLAB Python API, with eventually a conditional
 dependency on the Python version:
 
 ``` console
-export MATLAB_PIP_REQ_SPEC="matlabengine~=X.Y"
+export MATLAB_PIP_REQ_SPEC="matlabengine~=X.Y.0"
 ```
 
 where `X.Y` is the version number in above table.

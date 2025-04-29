@@ -34,20 +34,18 @@ MATLAB wrapper for GEMSEO
 
     | Python | Matlab | matlabengine |
     |:------:|:------:|:------------:|
-    | 3.9 | r2021b | 9.11.23 |
-    | 3.9 | r2022a | 9.12.21 |
-    | 3.9, 3.10 | r2022b | 9.13.11 |
-    | 3.9, 3.10 | r2023a | 9.14.7 |
+    | 3.9 | r2021b | 9.11 |
+    | 3.9 | r2022a | 9.12 |
+    | 3.9, 3.10 | r2022b | 9.13 |
+    | 3.9, 3.10 | r2023a | 9.14 |
+    | 3.9, 3.10, 3.11 | r2023b | 23.2 |
+    | 3.9, 3.10, 3.11 | r2024a | 24.1 |
 
     To make sure that MATLAB works fine through the Python API, start a
     Python interpreter and check that there is no error when executing
     `import matlab`.
 
 Install the latest stable version with `pip install gemseo-matlab`.
-
-Install the development version with
-`pip install gemseo-matlab@git+https://gitlab.com/gemseo/dev/gemseo-matlab.git@develop`.
-
 
 See [pip](https://pip.pypa.io/en/stable/getting-started/) for more information.
 
@@ -59,8 +57,10 @@ version of the MATLAB Python API, with eventually a conditional
 dependency on the Python version:
 
 ``` console
-export MATLAB_PIP_REQ_SPEC="matlabengine==X.Y.Z"
+export MATLAB_PIP_REQ_SPEC="matlabengine~=X.Y"
 ```
+
+where `X.Y` is the version number in above table.
 
 ## Docker
 

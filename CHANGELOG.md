@@ -26,13 +26,21 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 2.0.1 (April 2025)
+
+### Added
+
+- Support GEMSEO v6.1.0.
+- Support for Python 3.12.
+- Support for matlab r2023b, r2024a.
+
 ## Version 2.0.0 (November 2024)
 
 ### Added
 
 - Support GEMSEO v6.
 
-###Changed
+### Changed
 
 - The following arguments of `MatlabDiscipline` constructor were changed:
   - `matlab_fct` to `matlab_function_path`

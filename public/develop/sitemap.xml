@@ -2,50 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/changelog/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/credits/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/licenses/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/SUMMARY/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/engine/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/license_manager/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/matlab_data_processor/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/matlab_discipline/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/reference/gemseo_matlab/matlab_parser/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
     <url>
          <loc>https://gemseo.gitlab.io/gemseo-matlab/latest/user_guide/</loc>
-         <lastmod>2025-01-19</lastmod>
+         <lastmod>2025-04-29</lastmod>
     </url>
 </urlset>

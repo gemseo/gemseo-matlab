@@ -544,7 +544,6 @@ class MatlabDiscipline(Discipline):
 
         out_names = self.__outputs
 
-        # breakpoint()
         output_data = {}
         if len(out_names) == 1:
             output_data[out_names[0]] = double2array(out_vals)

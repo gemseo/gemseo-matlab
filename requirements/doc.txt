@@ -36,9 +36,9 @@ eval-type-backport==0.2.2
     # via gemseo
 fastjsonschema==2.21.1
     # via gemseo
-fonttools==4.57.0
+fonttools==4.58.0
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@87e86e4320ad7fa6748fe41572b14323a7d4c140
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@54f7862ccefc897aee49d51a62fb24f32d37b2f4
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-matlab (pyproject.toml)
@@ -134,7 +134,7 @@ mkdocs-include-markdown-plugin==7.1.5
     # via gemseo-matlab (pyproject.toml)
 mkdocs-literate-nav==0.6.2
     # via gemseo-matlab (pyproject.toml)
-mkdocs-material==9.6.12
+mkdocs-material==9.6.13
     # via
     #   gemseo-matlab (pyproject.toml)
     #   mkdocs-gallery
@@ -193,7 +193,7 @@ pillow==11.1.0
     # via
     #   gemseo
     #   matplotlib
-platformdirs==4.3.7
+platformdirs==4.3.8
     # via
     #   black
     #   mkdocs-get-deps
@@ -246,7 +246,7 @@ pyyaml==6.0.2
     #   pymdown-extensions
     #   pyyaml-env-tag
     #   responses
-pyyaml-env-tag==0.1
+pyyaml-env-tag==1.0
     # via
     #   mike
     #   mkdocs
@@ -266,7 +266,7 @@ scipy==1.13.1
     #   gemseo
     #   pydoe3
     #   scikit-learn
-setuptools==80.3.1
+setuptools==80.4.0
     # via mkdocs-bibtex
 six==1.17.0
     # via

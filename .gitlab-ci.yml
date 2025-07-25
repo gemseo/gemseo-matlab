@@ -2,7 +2,7 @@ include:
   - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/3/main.yml"
 
 variables:
-  # To reduce the licenses used.
+  # No concurrency to reduce the number of licenses used.
   PYTEST_OPTIONS:
     value: "--verbose"
 
@@ -10,7 +10,11 @@ test-min:
   rules:
     - when: never
 
-test-all:
+test-mid:
+  rules:
+    - when: never
+
+test-max:
   rules:
     - when: never
 
@@ -22,7 +26,8 @@ test-all:
     # the tests are executed on the internal gitlab.
     - if: $CI_SERVER_HOST == "gitlab.com"
       when: never
-    - !reference [.test-base, rules]
+    - !reference [.rules, if-force-test-job]
+    - !reference [.rules, if-not-tag-or-changes]
   image:
     name: registry.gitlab.com/gemseo/dev/gemseo-matlab/multi-python-matlab:$MATLAB_VERSION
   tags:

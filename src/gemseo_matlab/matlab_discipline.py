@@ -46,6 +46,7 @@ from typing import Final
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline.discipline import Discipline
+from gemseo.core.execution_statistics import ExecutionStatistics
 from gemseo.core.parallel_execution.callable_parallel_execution import (
     CallableParallelExecution,
 )
@@ -69,6 +70,9 @@ if TYPE_CHECKING:
 
 
 LOGGER = logging.getLogger(__name__)
+
+# In order to have access to the number of execution.
+ExecutionStatistics.is_enabled = True
 
 
 class MatlabDiscipline(Discipline):

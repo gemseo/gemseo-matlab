@@ -35,6 +35,7 @@ from __future__ import annotations
 import logging
 import os
 import re
+from multiprocessing import Value
 from os.path import exists
 from os.path import join
 from pathlib import Path
@@ -46,7 +47,6 @@ from typing import Final
 import matlab.engine
 import numpy as np
 from gemseo.core.discipline.discipline import Discipline
-from gemseo.core.execution_statistics import ExecutionStatistics
 from gemseo.core.parallel_execution.callable_parallel_execution import (
     CallableParallelExecution,
 )
@@ -65,14 +65,11 @@ if TYPE_CHECKING:
     from collections.abc import Mapping
     from collections.abc import MutableMapping
     from collections.abc import Sequence
+    from multiprocessing.sharedctypes import Synchronized
 
     from gemseo.typing import StrKeyMapping
 
-
 LOGGER = logging.getLogger(__name__)
-
-# In order to have access to the number of execution.
-ExecutionStatistics.is_enabled = True
 
 
 class MatlabDiscipline(Discipline):
@@ -114,11 +111,15 @@ class MatlabDiscipline(Discipline):
 
     _ATTR_NOT_TO_SERIALIZE = Discipline._ATTR_NOT_TO_SERIALIZE.union([
         "_MatlabDiscipline__engine",
+        "__n_executions",
     ])
 
     __TMP_ATTR_FOR_SERIALIZED_ENGINE_NAME: Final[str] = "matlab_engine_name"
 
     __TMP_ATTR_FOR_SERIALIZED_PATHS: Final[str] = "matlab_paths"
+
+    __n_executions: Synchronized[int]
+    """The number of calls to the execution method."""
 
     def __init__(
         self,
@@ -158,6 +159,7 @@ class MatlabDiscipline(Discipline):
             CallableParallelExecution.MultiProcessingStartMethod.SPAWN
         )
         self.__fct_name = None
+        self._init_shared_memory_attrs_before()
 
         matlab_function_path = str(matlab_function_path)
         if not input_names or not output_names:
@@ -206,6 +208,14 @@ class MatlabDiscipline(Discipline):
         self.cleaning_interval = cleaning_interval
         self.__init_default_data(matlab_data_path)
         self.io.data_processor = MatlabDataProcessor()
+
+    def _init_shared_memory_attrs_before(self) -> None:
+        self.__n_executions = Value("i", 0)
+
+    def __increment_n_executions(self) -> None:
+        """Increment the number of executions by 1."""
+        with self.__n_executions.get_lock():
+            self.__n_executions.value += 1
 
     def __setstate__(
         self,
@@ -515,6 +525,7 @@ class MatlabDiscipline(Discipline):
                 * If the execution of the matlab function fails.
                 * If the size of the jacobian output matrix is wrong.
         """
+        self.__increment_n_executions()
         list_of_values = [input_data.get(k) for k in self.__inputs if k in input_data]
 
         try:
@@ -538,12 +549,12 @@ class MatlabDiscipline(Discipline):
 
         if (
             self.cleaning_interval != 0
-            and self.execution_statistics.n_executions % self.cleaning_interval == 0
+            and self.__n_executions.value % self.cleaning_interval == 0
         ):
             self.__engine.execute_function("clear", "all", nargout=0)
             LOGGER.debug(
                 "MATLAB cache cleaned: Discipline called %s times",
-                self.execution_statistics.n_executions,
+                self.__n_executions.value,
             )
 
         out_names = self.__outputs

@@ -18,6 +18,7 @@ import pickle
 import re
 
 import pytest
+from gemseo import configure
 from gemseo.algos.design_space import DesignSpace
 from gemseo.scenarios.doe_scenario import DOEScenario
 from numpy import array
@@ -301,7 +302,7 @@ def test_run_user_multidim_jac_wrong_size():
     )
 
 
-def test_save_data():
+def test_save_data(tmp_wd):
     """Test that discipline data are correctly exported into a matlab file."""
     mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC)
     mat.execute({"x": array([2])})
@@ -330,6 +331,7 @@ def test_serialize(tmp_path):
     assert out["y"] == pytest.approx(4)
 
 
+@pytest.mark.slow
 def test_parallel():
     """Test multiprocessing with matlab discipline.
 
@@ -344,6 +346,47 @@ def test_parallel():
     scenario.add_observable("pid")
 
     n_samples = 10
+    scenario.execute(algo_name="DiagonalDOE", n_samples=n_samples, n_processes=2)
+    outputs, _ = scenario.formulation.optimization_problem.database.get_history(
+        function_names=["pid", "y"]
+    )
+
+    # split outputs in two separate arrays depending on PID
+    outputs = array(outputs)
+    pid_1 = outputs[0, 0]
+    out_1 = compress(outputs[:, 0] == pid_1, outputs, axis=0)
+    out_2 = compress(outputs[:, 0] != pid_1, outputs, axis=0)
+
+    assert out_1.shape[0] != n_samples
+    assert out_2.shape[0] == n_samples - out_1.shape[0]
+
+
+@pytest.mark.slow
+@pytest.mark.parametrize("enable_discipline_statistics", [True, False])
+def test_use_of_configure(
+    enable_discipline_statistics: bool, enable_function_statistics: bool
+) -> None:
+    """Test that the use of ``gemseo.configure()`` does not change the behaviour.
+
+    Issues may happen by using the cleaning interval option
+    since it needs the access of statistics.
+
+    Inspired from the test: ``test_parallel``.
+    """
+    configure(
+        enable_discipline_statistics=enable_discipline_statistics,
+        enable_function_statistics=enable_function_statistics,
+    )
+
+    mat = MatlabDiscipline(MATLAB_PARALLEL_FUNC, cleaning_interval=2)
+
+    ds = DesignSpace()
+    ds.add_variable("x", lower_bound=-10, upper_bound=10)
+
+    scenario = DOEScenario([mat], "y", ds, formulation_name="DisciplinaryOpt")
+    scenario.add_observable("pid")
+
+    n_samples = 4
     scenario.execute(algo_name="DiagonalDOE", n_samples=n_samples, n_processes=2)
     outputs, _ = scenario.formulation.optimization_problem.database.get_history(
         function_names=["pid", "y"]

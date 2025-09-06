@@ -39,7 +39,7 @@ fieldz==0.1.2
     # via griffe-fieldz
 fonttools==4.59.2
     # via matplotlib
-gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@690bc04d053bfc84304cfab4660f22db0d2ae17f
+gemseo @ git+https://gitlab.com/gemseo/dev/gemseo.git@9be33cec53c2c836a6afc299437a11167c17b00e
     # via
     #   -c requirements/test-constraints.in
     #   gemseo-matlab (pyproject.toml)
@@ -49,14 +49,14 @@ ghp-import==2.1.0
     # via mkdocs
 graphviz==0.21
     # via gemseo
-griffe==1.13.0
+griffe==1.14.0
     # via
     #   griffe-fieldz
     #   griffe-inherited-docstrings
     #   mkdocstrings-python
 griffe-fieldz==0.3.0
     # via gemseo-matlab (pyproject.toml:doc)
-griffe-inherited-docstrings==1.1.1
+griffe-inherited-docstrings==1.1.2
     # via gemseo-matlab (pyproject.toml:doc)
 h5py==3.14.0
     # via gemseo
@@ -79,7 +79,7 @@ kiwisolver==1.4.9
     # via matplotlib
 latexcodec==3.0.1
     # via pybtex
-markdown==3.8.2
+markdown==3.9
     # via
     #   mkdocs
     #   mkdocs-autorefs

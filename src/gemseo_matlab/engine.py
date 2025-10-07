@@ -305,8 +305,8 @@ class MatlabEngine:
             LOGGER.exception(
                 "Failed to execute Matlab function %s with arguments %s and %s",
                 func_name,
-                str(args),
-                str(kwargs),
+                args,
+                kwargs,
             )
             raise
 

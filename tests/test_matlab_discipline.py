@@ -363,6 +363,7 @@ def test_parallel():
 
 @pytest.mark.slow
 @pytest.mark.parametrize("enable_discipline_statistics", [True, False])
+@pytest.mark.parametrize("enable_function_statistics", [True, False])
 def test_use_of_configure(
     enable_discipline_statistics: bool, enable_function_statistics: bool
 ) -> None:

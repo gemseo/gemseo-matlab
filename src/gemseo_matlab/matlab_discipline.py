@@ -52,7 +52,6 @@ from gemseo.core.parallel_execution.callable_parallel_execution import (
 )
 from gemseo.utils.portable_path import to_os_specific
 
-from gemseo_matlab.engine import MatlabEngine
 from gemseo_matlab.engine import get_matlab_engine
 from gemseo_matlab.matlab_data_processor import MatlabDataProcessor
 from gemseo_matlab.matlab_data_processor import convert_array_from_matlab
@@ -68,6 +67,8 @@ if TYPE_CHECKING:
     from multiprocessing.sharedctypes import Synchronized
 
     from gemseo.typing import StrKeyMapping
+
+    from gemseo_matlab.engine import MatlabEngine
 
 LOGGER = logging.getLogger(__name__)
 
@@ -563,7 +564,7 @@ class MatlabDiscipline(Discipline):
         if len(out_names) == 1:
             output_data[out_names[0]] = double2array(out_vals)
         else:
-            for out_n, out_v in zip(out_names, out_vals):
+            for out_n, out_v in zip(out_names, out_vals, strict=False):
                 output_data[out_n] = double2array(out_v)
 
         if not self.__is_size_known:

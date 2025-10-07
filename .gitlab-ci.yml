@@ -1,5 +1,5 @@
 include:
-  - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/3/main.yml"
+  - remote: "https://gitlab.com/gemseo/dev/ci-includes/-/raw/4/main.yml"
 
 variables:
   # No concurrency to reduce the number of licenses used.
@@ -33,34 +33,6 @@ test-max:
   tags:
     - saas-linux-small-amd64
 
-test-r2021b-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2021b
-    MATLAB_PIP_REQ_SPEC: matlabengine~=9.11.0
-
-test-r2022a-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2022a
-    MATLAB_PIP_REQ_SPEC: matlabengine~=9.12.0
-  needs:
-    - test-r2021b-py39
-
-test-r2022b-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2022b
-    MATLAB_PIP_REQ_SPEC: matlabengine~=9.13.0
-  needs:
-    - test-r2022a-py39
-
 test-r2022b-py310:
   extends:
     - .test
@@ -68,18 +40,6 @@ test-r2022b-py310:
     PY_VERSION: 310
     MATLAB_VERSION: r2022b
     MATLAB_PIP_REQ_SPEC: matlabengine~=9.13.0
-  needs:
-    - test-r2022b-py39
-
-test-r2023a-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2023a
-    MATLAB_PIP_REQ_SPEC: matlabengine~=9.14.0
-  needs:
-    - test-r2022b-py310
 
 test-r2023a-py310:
   extends:
@@ -89,17 +49,7 @@ test-r2023a-py310:
     MATLAB_VERSION: r2023a
     MATLAB_PIP_REQ_SPEC: matlabengine~=9.14.0
   needs:
-    - test-r2023a-py39
-
-test-r2023b-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2023b
-    MATLAB_PIP_REQ_SPEC: matlabengine~=23.2.0
-  needs:
-    - test-r2023a-py310
+    - test-r2022b-py310
 
 test-r2023b-py310:
   extends:
@@ -109,7 +59,7 @@ test-r2023b-py310:
     MATLAB_VERSION: r2023b
     MATLAB_PIP_REQ_SPEC: matlabengine~=23.2.0
   needs:
-    - test-r2023b-py39
+    - test-r2023a-py310
 
 test-r2023b-py311:
   extends:
@@ -121,16 +71,6 @@ test-r2023b-py311:
   needs:
     - test-r2023b-py310
 
-test-r2024a-py39:
-  extends:
-    - .test
-  variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2024a
-    MATLAB_PIP_REQ_SPEC: matlabengine~=24.1.0
-  needs:
-    - test-r2023b-py311
-
 test-r2024a-py310:
   extends:
     - .test
@@ -139,7 +79,7 @@ test-r2024a-py310:
     MATLAB_VERSION: r2024a
     MATLAB_PIP_REQ_SPEC: matlabengine~=24.1.0
   needs:
-    - test-r2024a-py39
+    - test-r2023b-py311
 
 test-r2024a-py311:
   extends:
@@ -153,14 +93,26 @@ test-r2024a-py311:
 
 # Windows.
 
-test-r2022a-py39-windows:
+test-r2023b-py310-windows:
   extends:
     - .test
   tags:
     - windows-server-2019
   variables:
-    PY_VERSION: 39
-    MATLAB_VERSION: r2022a
-    MATLAB_PIP_REQ_SPEC: matlabengine~=9.12.0
+    PY_VERSION: 310
+    MATLAB_VERSION: r2023b
+    MATLAB_PIP_REQ_SPEC: matlabengine~=23.2.0
   needs:
     - test-r2024a-py311
+
+test-r2023b-py311-windows:
+  extends:
+    - .test
+  tags:
+    - windows-server-2019
+  variables:
+    PY_VERSION: 311
+    MATLAB_VERSION: r2023b
+    MATLAB_PIP_REQ_SPEC: matlabengine~=23.2.0
+  needs:
+    - test-r2023b-py310-windows

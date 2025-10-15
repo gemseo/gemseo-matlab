@@ -20,6 +20,7 @@ from pathlib import Path
 import matlab
 import numpy as np
 import pytest
+from gemseo.utils.platform import PLATFORM_IS_WINDOWS
 
 from gemseo_matlab.engine import get_matlab_engine
 
@@ -106,6 +107,7 @@ def test_execute(x, res, matlab_engine):
     assert res == matlab_engine.execute_function("dummy_test", x, nargout=1)
 
 
+@pytest.mark.skipif(PLATFORM_IS_WINDOWS, reason="No License for parallel.")
 def test_parallel(matlab_engine):
     """If parallel exist, test that it starts and stop correctly."""
     matlab_engine.start_parallel_computing(4)

@@ -26,6 +26,16 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Version 2.0.4 (October 2025)
+
+### Added
+
+- Support for Python 3.13.
+
+### Removed
+
+- Support for Python 3.9.
+
 ## Version 2.0.3 (September 2025)
 
 ### Fixed

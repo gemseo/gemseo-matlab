@@ -57,7 +57,7 @@ from typing import Any
 from typing import Final
 
 import matlab.engine
-from strenum import StrEnum
+from enum import StrEnum
 
 from gemseo_matlab.matlab_data_processor import double2array
 

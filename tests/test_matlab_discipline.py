@@ -18,9 +18,9 @@ import pickle
 import re
 
 import pytest
-from gemseo import configure
-from gemseo.algos.design_space import DesignSpace
-from gemseo.scenarios.doe_scenario import DOEScenario
+from gemseo import configuration
+from gemseo.space import DesignSpace
+from gemseo.scenario import MDOScenario
 from numpy import array
 from numpy import compress
 
@@ -29,6 +29,8 @@ from gemseo_matlab.matlab_data_processor import load_matlab_file
 from gemseo_matlab.matlab_discipline import MatlabDiscipline
 
 from .matlab_files import MATLAB_FILES_DIR_PATH
+from gemseo.doe import DiagonalDOE_Settings
+from gemseo.formulation import DisciplinaryOpt_Settings
 
 MATLAB_SIMPLE_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test.m"
 MATLAB_PARALLEL_FUNC = MATLAB_FILES_DIR_PATH / "dummy_test_parallel.m"
@@ -226,6 +228,7 @@ def test_run_builtin():
     values."""
     mat = MatlabDiscipline("cos", input_names=["x"], output_names=["out"])
     mat.execute({"x": array([0])})
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert mat.io.data["out"] == pytest.approx(1)
 
 
@@ -234,6 +237,7 @@ def test_run_user(cleaning_interval: int):
     """Test that user matlab function is correctly called and returned right values."""
     mat = MatlabDiscipline(MATLAB_SIMPLE_FUNC, cleaning_interval=cleaning_interval)
     mat.execute({"x": array([2])})
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert mat.io.data["y"] == pytest.approx(4)
 
 
@@ -244,6 +248,7 @@ def test_run_user_new_names():
         MATLAB_SIMPLE_FUNC, input_names=["in1"], output_names=["out"]
     )
     mat.execute({"in1": array([3])})
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert mat.io.data["out"] == pytest.approx(9)
 
 
@@ -253,7 +258,9 @@ def test_run_user_multidim():
         MATLAB_SIMPLE_FUNC_MULTIDIM, matlab_data_path=FCT_MULTIDIM_DATASET
     )
     mat.execute({"x": array([1, 2]), "y": array([3])})
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert array(mat.io.data["z1"]) == pytest.approx(array([1, 5]))
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert mat.io.data["z2"] == pytest.approx(11)
 
 
@@ -265,7 +272,9 @@ def test_run_user_multidim_no_extension_data():
         root_search_path=MATLAB_FILES_DIR_PATH,
     )
     mat.execute({"x": array([1, 2]), "y": array([3])})
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert array(mat.io.data["z1"]) == pytest.approx(array([1, 5]))
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert mat.io.data["z2"] == pytest.approx(11)
 
 
@@ -282,6 +291,7 @@ def test_run_user_multidim_jac():
     assert array(mat.jac["z1"]["y"]) == pytest.approx(array([[0], [54]]))
     assert array(mat.jac["z2"]["x"]) == pytest.approx(array([[4, 0]]))
     assert array(mat.jac["z2"]["y"]) == pytest.approx(array([[6]]))
+    # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
     assert len(mat.io.data) == 4
 
 
@@ -342,12 +352,13 @@ def test_parallel():
     ds = DesignSpace()
     ds.add_variable("x", lower_bound=-10, upper_bound=10)
 
-    scenario = DOEScenario([mat], "y", ds, formulation_name="DisciplinaryOpt")
+    scenario = MDOScenario([mat], design_space=ds, formulation_settings=DisciplinaryOpt_Settings())
+    scenario.add_objective("y", minimize=True)
     scenario.add_observable("pid")
 
     n_samples = 10
-    scenario.execute(algo_name="DiagonalDOE", n_samples=n_samples, n_processes=2)
-    outputs, _ = scenario.formulation.optimization_problem.database.get_history(
+    scenario.execute(algorithm_settings=DiagonalDOE_Settings(n_samples=n_samples, n_processes=2))
+    outputs, _ = scenario.formulation.problem.database.get_history(
         function_names=["pid", "y"]
     )
 
@@ -374,22 +385,21 @@ def test_use_of_configure(
 
     Inspired from the test: ``test_parallel``.
     """
-    configure(
-        enable_discipline_statistics=enable_discipline_statistics,
-        enable_function_statistics=enable_function_statistics,
-    )
+    configuration.enable_discipline_statistics = enable_discipline_statistics
+    configuration.enable_function_statistics = enable_function_statistics
 
     mat = MatlabDiscipline(MATLAB_PARALLEL_FUNC, cleaning_interval=2)
 
     ds = DesignSpace()
     ds.add_variable("x", lower_bound=-10, upper_bound=10)
 
-    scenario = DOEScenario([mat], "y", ds, formulation_name="DisciplinaryOpt")
+    scenario = MDOScenario([mat], design_space=ds, formulation_settings=DisciplinaryOpt_Settings())
+    scenario.add_objective("y", minimize=True)
     scenario.add_observable("pid")
 
     n_samples = 4
-    scenario.execute(algo_name="DiagonalDOE", n_samples=n_samples, n_processes=2)
-    outputs, _ = scenario.formulation.optimization_problem.database.get_history(
+    scenario.execute(algorithm_settings=DiagonalDOE_Settings(n_samples=n_samples, n_processes=2))
+    outputs, _ = scenario.formulation.problem.database.get_history(
         function_names=["pid", "y"]
     )
 

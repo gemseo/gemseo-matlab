@@ -16,13 +16,14 @@ from __future__ import annotations
 
 import numpy as np
 import pytest
+from gemseo.optimization import SLSQP_Settings
 
 # skip if matlab API is not found.
 pytest.importorskip("matlab")
 
 from gemseo import create_discipline  # noqa: E402
 from gemseo import create_scenario  # noqa: E402
-from gemseo.algos.design_space import DesignSpace  # noqa: E402
+from gemseo.space import DesignSpace  # noqa: E402
 
 from .matlab_files import MATLAB_FILES_DIR_PATH  # noqa: E402
 
@@ -104,8 +105,11 @@ def test_matlab_jacobians_sellar1():
     threshold = 1e-7
     step = 1e-7
 
+    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar1, step=step, atol=threshold, rtol=threshold); for list, keep sellar1.check_jacobian(step=step, threshold=threshold)  # noqa: E501
     assert sellar1.check_jacobian(step=step, threshold=threshold)
+    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar2, step=step, atol=threshold, rtol=threshold); for list, keep sellar2.check_jacobian(step=step, threshold=threshold)  # noqa: E501
     assert sellar2.check_jacobian(step=step, threshold=threshold)
+    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar_system, step=step, atol=threshold, rtol=threshold); for list, keep sellar_system.check_jacobian(step=step, threshold=threshold)  # noqa: E501
     assert sellar_system.check_jacobian(step=step, threshold=threshold)
 
 
@@ -115,14 +119,14 @@ def test_matlab_optim_results():
     Jacobians are computed.
     """
     scenario = build_matlab_scenario()
-    scenario.execute(algo_name="SLSQP", max_iter=20)
+    scenario.execute(algorithm_settings=SLSQP_Settings(max_iter=20))
 
     # ref values are taken from the doc "Sellar Problem"
 
     optim_res = scenario.optimization_result
     assert optim_res.f_opt == pytest.approx(3.18339, rel=0.001)
 
-    x_opt = scenario.design_space.get_current_value(as_dict=True)
+    x_opt = scenario.input_space.get_current_value(as_dict=True)
     assert x_opt["x"] == pytest.approx(0.0, abs=0.0001)
     assert x_opt["z"][0] == pytest.approx(1.9776, abs=0.0001)
     assert x_opt["z"][1] == pytest.approx(0.0, abs=0.0001)

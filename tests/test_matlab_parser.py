@@ -60,8 +60,10 @@ from .matlab_files import MATLAB_FILES_DIR_PATH
         ),
         (
             NameError,
-            "Function name dummy_test_wrong_name does not match with file name "
-            "dummy_test.",
+            (
+                "Function name dummy_test_wrong_name does not match with file name "
+                "dummy_test."
+            ),
             MATLAB_FILES_DIR_PATH / "dummy_test_wrong_name.m",
         ),
         (

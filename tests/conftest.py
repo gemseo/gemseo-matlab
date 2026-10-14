@@ -12,7 +12,18 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program; if not, write to the Free Software Foundation,
 # Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
 from __future__ import annotations
 
-from gemseo.util.testing.pytest_conftest import *  # noqa: F401,F403
+from importlib.util import find_spec
+from pathlib import Path
+
+from gemseo.util.testing.pytest_conftest import *  # noqa: F403
+
+# Without the MATLAB Engine API for Python, e.g. on gitlab.com,
+# only the tests that do not need MATLAB are collected.
+if find_spec("matlab") is None:
+    collect_ignore = [
+        path.name
+        for path in Path(__file__).parent.glob("test_*.py")
+        if path.name != "test_matlab_parser.py"
+    ]

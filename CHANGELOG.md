@@ -78,10 +78,10 @@ and this project adheres to
 ### Changed
 
 - The following arguments of `MatlabDiscipline` constructor were changed:
-  - `matlab_fct` to `matlab_function_path`
-  - `search_file` to `root_search_path`
-  - `matlab_data_file` to `matlab_data_path`
-  - `clean_cache_each_n` to `cleaning_interval`
+    - `matlab_fct` to `matlab_function_path`
+    - `search_file` to `root_search_path`
+    - `matlab_data_file` to `matlab_data_path`
+    - `clean_cache_each_n` to `cleaning_interval`
 
 ## Version 1.0.3 (December 2023)
 

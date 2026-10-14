@@ -256,7 +256,7 @@ class MatlabDiscipline(Discipline):
 
     @property
     def function_name(self) -> str:
-        """Return the name of the function."""
+        """The name of the function."""
         return self.__fct_name
 
     @staticmethod

@@ -72,22 +72,22 @@ class MatlabParser:
 
     @property
     def function_name(self) -> str:
-        """Return the name of the function."""
+        """The name of the function."""
         return self.__fct_name
 
     @property
     def directory(self) -> Path:
-        """Return the directory of the function."""
+        """The directory of the function."""
         return self.__fct_dir
 
     @property
     def inputs(self) -> list[str]:
-        """Return the inputs."""
+        """The inputs."""
         return self.__inputs
 
     @property
     def outputs(self) -> list[str]:
-        """Return the outputs."""
+        """The outputs."""
         return self.__outputs
 
     def __check_path(self, file_path: str | Path) -> None:

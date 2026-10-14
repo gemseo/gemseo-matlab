@@ -171,17 +171,17 @@ class MatlabEngine:
 
     @property
     def paths(self) -> list[str]:
-        """Return the paths."""
+        """The paths."""
         return self.__paths
 
     @property
     def is_parallel(self) -> bool:
-        """Return True if parallel is active."""
+        """Whether the parallel computing is active."""
         return self.__is_parallel
 
     @property
     def is_closed(self) -> bool:
-        """Return True if the matlab engine is closed."""
+        """Whether the matlab engine is closed."""
         return self.__is_closed
 
     def start_engine(self) -> None:

@@ -34,10 +34,8 @@ MATLAB wrapper for GEMSEO
 
     | Python | Matlab | matlabengine |
     |:------:|:------:|:------------:|
-    | 3.10 | r2022b | 9.13 |
-    | 3.10 | r2023a | 9.14 |
-    | 3.10, 3.11 | r2023b | 23.2 |
-    | 3.10, 3.11 | r2024a | 24.1 |
+    | 3.11 | r2023b | 23.2 |
+    | 3.11 | r2024a | 24.1 |
 
     To make sure that MATLAB works fine through the Python API, start a
     Python interpreter and check that there is no error when executing

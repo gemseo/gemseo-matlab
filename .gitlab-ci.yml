@@ -20,6 +20,15 @@ test-max:
   rules:
     - when: never
 
+codecov:
+  rules:
+    # The tests are not run on gitlab.com, so there is no coverage report to upload.
+    - if: $CI_SERVER_HOST == "gitlab.com"
+      when: never
+    - if: $CODECOV_TOKEN == null
+      when: never
+    - !reference [.rules, if-not-tag-or-changes]
+
 .test:
   extends:
     - .test-base

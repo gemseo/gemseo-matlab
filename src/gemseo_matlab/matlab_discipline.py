@@ -46,10 +46,10 @@ from typing import Final
 
 import matlab.engine
 import numpy as np
-from gemseo.discipline import Discipline
 from gemseo.core.parallel_execution.callable_parallel_execution import (
     CallableParallelExecution,
 )
+from gemseo.discipline import Discipline
 from gemseo.util.portable_path import to_os_specific
 
 from gemseo_matlab.engine import get_matlab_engine
@@ -590,8 +590,7 @@ class MatlabDiscipline(Discipline):
         """
         # Those data will be processed by the data_processor and overwritten after _run,
         # here they are necessary for Initializing the jacobian.
-        # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
-        self.io.data.update(output_data)
+        self.io.update_output_data(output_data)
 
         self._init_jacobian()
 
@@ -651,8 +650,7 @@ class MatlabDiscipline(Discipline):
             file_path: The path where to save the file.
         """
         file_path = Path(file_path)
-        # TODO(bump-gemseo): IO.data is deprecated and returns a copy of the input and output data, so setting, updating or removing an item through it has no effect, and an output that _run produces through it is missing, even when produced by changing an input in place; return the outputs from _run or write them to output_data (or update_output_data(data)), write the inputs to input_data, and read input_data, output_data or get_merged_data()  # noqa: E501
-        save_matlab_file(self.io.data, file_path=file_path)
+        save_matlab_file(self.io.get_merged_data(), file_path=file_path)
         msg = (
             f"Local data of discipline {self.name} exported to "
             f"{file_path.name}.mat successfully."

@@ -50,6 +50,7 @@ from __future__ import annotations
 
 import logging
 import os
+from enum import StrEnum
 from functools import lru_cache
 from pathlib import Path
 from typing import TYPE_CHECKING
@@ -57,7 +58,6 @@ from typing import Any
 from typing import Final
 
 import matlab.engine
-from enum import StrEnum
 
 from gemseo_matlab.matlab_data_processor import double2array
 

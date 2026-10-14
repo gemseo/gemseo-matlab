@@ -21,6 +21,7 @@ from gemseo.optimization import SLSQP_Settings
 # skip if matlab API is not found.
 pytest.importorskip("matlab")
 
+from gemseo import check_jacobian  # noqa: E402
 from gemseo import create_discipline  # noqa: E402
 from gemseo import create_scenario  # noqa: E402
 from gemseo.space import DesignSpace  # noqa: E402
@@ -105,12 +106,9 @@ def test_matlab_jacobians_sellar1():
     threshold = 1e-7
     step = 1e-7
 
-    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar1, step=step, atol=threshold, rtol=threshold); for list, keep sellar1.check_jacobian(step=step, threshold=threshold)  # noqa: E501
-    assert sellar1.check_jacobian(step=step, threshold=threshold)
-    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar2, step=step, atol=threshold, rtol=threshold); for list, keep sellar2.check_jacobian(step=step, threshold=threshold)  # noqa: E501
-    assert sellar2.check_jacobian(step=step, threshold=threshold)
-    # TODO(bump-gemseo): cannot transform: the receiver of check_jacobian may be of several types (Discipline, list), whose rules of check_jacobian differ: for Discipline, write check_jacobian(sellar_system, step=step, atol=threshold, rtol=threshold); for list, keep sellar_system.check_jacobian(step=step, threshold=threshold)  # noqa: E501
-    assert sellar_system.check_jacobian(step=step, threshold=threshold)
+    assert check_jacobian(sellar1, step=step, atol=threshold, rtol=threshold)
+    assert check_jacobian(sellar2, step=step, atol=threshold, rtol=threshold)
+    assert check_jacobian(sellar_system, step=step, atol=threshold, rtol=threshold)
 
 
 def test_matlab_optim_results():

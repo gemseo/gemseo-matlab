@@ -26,6 +26,19 @@ The format is based on
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Develop
+
+### Added
+
+- Support for GEMSEO v7.
+
+### Removed
+
+- Support for GEMSEO v6.
+- Support for Python 3.10.
+- Support for MATLAB r2022b and r2023a, whose Python API does not support Python 3.11.
+- The dependency on `strenum`.
+
 ## Version 2.0.4 (October 2025)
 
 ### Added
